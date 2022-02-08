@@ -7,11 +7,8 @@ import expression.Const;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
-import java.util.List;
 import java.util.function.Function;
 import java.util.function.IntFunction;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)

@@ -22,7 +22,7 @@ public interface Runner {
     static Runner args(final String className) {
         final CommentRunner main = main(className);
         return (counter, input) -> {
-            final int total = input.stream().mapToInt(String::length).sum();
+            final int total = input.stream().mapToInt(String::length).sum() + input.size() * 3;
             final String comment = total <= 1000
                     ? input.stream().collect(Collectors.joining("\" \"", "\"", "\""))
                     : input.size() <= 100

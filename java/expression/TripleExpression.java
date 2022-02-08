@@ -2,12 +2,9 @@ package expression;
 
 import base.Pair;
 import base.TestCounter;
-import expression.common.Expr;
 import expression.common.ExpressionKind;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * Three-argument arithmetic expression over integers.

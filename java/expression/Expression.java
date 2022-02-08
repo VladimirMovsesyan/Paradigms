@@ -8,8 +8,6 @@ import expression.common.ExpressionKind;
 import expression.common.Type;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * One-argument arithmetic expression over integers.
