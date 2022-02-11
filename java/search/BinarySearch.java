@@ -46,7 +46,7 @@ public class BinarySearch {
         
         // BSRecursive binSearch = new BSRecursive();
         // System.out.println(binSearch.BinarySearchRecursive(arr, x));
-        
+
         BSIterative binSearch = new BSIterative();
         System.out.println(binSearch.binarySearchIterative(arr, x));
         
