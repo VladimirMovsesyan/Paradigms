@@ -1,54 +1,45 @@
 package search;
 
-import java.util.Arrays;
-
 public class BinarySearch {
 
-    public static int[] parse(String inputTest) {
-        int[] arr = new int[10];
-        int length = 0;
-
-        for (int i = 0; i < inputTest.length(); i++) {
-            StringBuilder curDigit = new StringBuilder();
-
-            while (i < inputTest.length() && Character.isWhitespace(inputTest.charAt(i))) {
-                i++;
-            }
-
-            while (i < inputTest.length() && (Character.isDigit(inputTest.charAt(i)) || inputTest.charAt(i) == '-')) {
-                curDigit.append(inputTest.charAt(i));
-                i++;
-            }
-
-            if (curDigit.length() > 0) {
-                if (arr.length == length) {
-                    arr = Arrays.copyOf(arr, arr.length * 2);
-                }
-
-                arr[length++] = Integer.parseInt(curDigit.toString());
-            }
-        }
-
-        arr = Arrays.copyOf(arr, length);
-
-        return arr;
-    }
-
+    // Pred: args.length > 0 && forAll args[i] is number
+    // Post: answer printed
     public static void main(String[] args) {
+        // Pred: true
+        // Post: x = Integer.parseInt(args[0])
         int x = Integer.parseInt(args[0]);
+
+        // Pred: true
+        // Post: arr = new int[args.length - 1]
         int[] arr = new int[args.length - 1];
         
-        for (int i = 1; i < args.length; i++) {
-            arr[i - 1] = Integer.parseInt(args[i]);
+        // Pred: true
+        // Post: ind = 1
+        int ind = 1;
+
+        // Pred: arr.length > 0
+        // Post: arr[ind - 1] = Integer.parseInt(args[ind]) && forAll (ind >= 1 && ind < args.length)
+        while (ind < args.length) {
+
+            // Pred: ind >= 1 && ind < args.length
+            // Post: arr[ind - 1] = Integer.parseInt(args[ind])
+            arr[ind - 1] = Integer.parseInt(args[ind]);
+
+            // Pred: ind < args.length
+            // Post: ind' = ind + 1
+            ind++;
         }
 
-        // int[] arr = parse(temp.toString());
-        
-        // BSRecursive binSearch = new BSRecursive();
-        // System.out.println(binSearch.BinarySearchRecursive(arr, x));
-
+        // Pred: true
+        // Post: binSearch = new BSIterative();
         BSIterative binSearch = new BSIterative();
-        System.out.println(binSearch.binarySearchIterative(arr, x));
-        
+
+        // Pred: arr is sorted non-ascending
+        // Post: answer = (arr.length > 0 ? (ind, where arr[ind] = value) : arr.length) && ind = min(ind), where arr[ind] = value
+        int answer = binSearch.binarySearchIterative(arr, x);
+
+        // Pred: true
+        // Post: printed answer
+        System.out.println(answer);
     }
 }
