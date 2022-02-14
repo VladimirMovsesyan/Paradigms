@@ -2,6 +2,20 @@
 
 [Условия домашних заданий](https://www.kgeorgiy.info/courses/paradigms/homeworks.html)
 
+## Домашнее задание 3. Очередь на массиве
+
+Модификации
+ * *Базовая*
+    * Классы должны находиться в пакете `queue`
+    * [Исходный код тестов](java/queue/ArrayQueueTest.java)
+    * [Откомпилированные тесты](artifacts/queue/ArrayQueueTest.jar)
+
+Если при тестировании вы получаете ошибку 
+`... module java.base does not "opens java.util" to unnamed module ...` 
+(характерно для Java 17+), то при запуске тестов добавьте опции
+`--add-opens` и `java.base/java.util=ALL-UNNAMED`.
+
+
 ## Домашнее задание 2. Бинарный поиск
 
 Модификации
