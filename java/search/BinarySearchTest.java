@@ -12,7 +12,10 @@ import java.util.stream.IntStream;
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
-public class BinarySearchTest {
+public final class BinarySearchTest {
+    private BinarySearchTest() {
+    }
+
     /* package-private */ static long[] base(final int c, final int x, final int[] a) {
         for (int i = 0; i < a.length; i++) {
             if (Integer.compare(a[i], x) != c) {
@@ -36,9 +39,14 @@ public class BinarySearchTest {
         return uni((k, a) -> k < 1 ? a[k] : k == a.length ? a[k - 1] : op.applyAsInt(a[k], a[k - 1]));
     }
 
+    private static Sorted uniI(final IntBinaryOperator op) {
+        return uni((k, a) -> k != 0 && (k == a.length || op.applyAsInt(a[k], a[k - 1]) == a[k - 1]) ? k - 1 : k);
+    }
+
     public static final ModelessSelector<?> SELECTOR = VariantTester.selector(BinarySearchTest.class, BinarySearchTester::test)
             .variant("Base", Solver.variant("", false, BinarySearchTest::base))
             .variant("Min",  Sorted.variant("Min",     false,  uniE(Math::min)))
+            .variant("Uni",  Sorted.variant("Uni",     false,  uniI(Math::min)))
             ;
 
     public static long[] longs(final long... longs) {
