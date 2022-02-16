@@ -27,6 +27,7 @@ public class BinarySearchShift {
 
         // Pred: true
         // Post: binSearch = new BSIterativeDerivative();
+
         BSRecursiveDerivative binSearch = new BSRecursiveDerivative();
 
         // Pred: arr.length > 0 && array is sorted by asceding and shifted for k, where k >= 0
