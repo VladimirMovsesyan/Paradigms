@@ -13,9 +13,9 @@ public class BSIterative {
         int right = arr.length;
 
 
-        // Inv: right > left && left >= -1 && right <= arr.length && answer > left && answer <= right
+        // Inv: right > left && left >= -1 && right <= arr.length && answer > left && answer <= right && answer between l and r
         while (right - left > 1) {
-            // Inv: right > left && left >= -1 && right <= arr.length && answer > left && answer <= right
+            // Inv: right > left && left >= -1 && right <= arr.length && answer > left && answer <= right && answer between l and r
 
             // Pred: (left + right) / 2 >= 0 && (left + right) / 2 < arr.length
             // Post: mid = (left + right) / 2
@@ -37,9 +37,9 @@ public class BSIterative {
                 // Inv: right > left && left >= -1 && right <= arr.length && answer > left && answer <= right
             }
             // Post: Inv
-            // Inv: right > left && left >= -1 && right <= arr.length && answer > left && answer <= right
+            // Inv: right > left && left >= -1 && right <= arr.length && answer > left && answer <= right && answer between l and r
         }
-        // Inv: right > left && left >= -1 && right <= arr.length && answer > left && answer <= right
+        // Inv: right > left && left >= -1 && right <= arr.length && answer > left && answer <= right && answer between l and r
 
         // Pred: right = answer
         // Post: return right
