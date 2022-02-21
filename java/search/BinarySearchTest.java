@@ -35,6 +35,34 @@ public final class BinarySearchTest {
         };
     }
 
+    private static long[] missing(final int c, final int x, final int[] a) {
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] == x) {
+                return longs(i);
+            }
+            if (Integer.compare(x, a[i]) == c) {
+                return longs(-1 - i);
+            }
+        }
+        return longs(-1 - a.length);
+    }
+
+
+    private static Sorted cycle(final BiFunction<Integer, int[], Integer> answer) {
+        return (tester, a, b) -> {
+            for (int k = 0; k < a.length; k++) {
+                tester.test(answer.apply(k, a), a);
+
+                final int last = a[a.length - 1];
+                System.arraycopy(a, 0, a, 1, a.length - 1);
+                a[0] = last;
+            }
+        };
+    }
+
+    private static final Sorted CYCLE = cycle((k, a) -> k);
+
+
     private static Sorted uniE(final IntBinaryOperator op) {
         return uni((k, a) -> k < 1 ? a[k] : k == a.length ? a[k - 1] : op.applyAsInt(a[k], a[k - 1]));
     }
@@ -45,6 +73,8 @@ public final class BinarySearchTest {
 
     public static final ModelessSelector<?> SELECTOR = VariantTester.selector(BinarySearchTest.class, BinarySearchTester::test)
             .variant("Base", Solver.variant("", false, BinarySearchTest::base))
+            .variant("Missing",   Solver.variant("Missing", true,   BinarySearchTest::missing))
+            .variant("Shift",     Sorted.variant("Shift",   true,   CYCLE))
             .variant("Min",  Sorted.variant("Min",     false,  uniE(Math::min)))
             .variant("Uni",  Sorted.variant("Uni",     false,  uniI(Math::min)))
             ;
