@@ -1,8 +1,9 @@
 package queue;
 
+import base.ExtendedRandom;
+
 import java.util.ArrayDeque;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
@@ -40,24 +41,24 @@ public final class Queues {
     /* package-private */ interface QueueChecker<T extends QueueModel> {
         T wrap(ArrayDeque<Object> reference);
 
-        default List<T> linearTest(final T queue, final Random random) {
+        default List<T> linearTest(final T queue, final ExtendedRandom random) {
             // Do nothing by default
             return List.of();
         }
 
-        default void check(final T queue, final Random random) {
+        default void check(final T queue, final ExtendedRandom random) {
             queue.element();
         }
 
-        default void add(final T queue, final Object element, final Random random) {
+        default void add(final T queue, final Object element, final ExtendedRandom random) {
             queue.enqueue(element);
         }
 
-        default Object randomElement(final Random random) {
+        default Object randomElement(final ExtendedRandom random) {
             return ArrayQueueTester.ELEMENTS[random.nextInt(ArrayQueueTester.ELEMENTS.length)];
         }
 
-        default void remove(final T queue, final Random random) {
+        default void remove(final T queue, final ExtendedRandom random) {
             queue.dequeue();
         }
 
@@ -69,15 +70,15 @@ public final class Queues {
 
     @FunctionalInterface
     protected interface Splitter<M extends QueueModel> {
-        List<M> split(final QueueChecker<? extends M> tester, final M queue, final Random random);
+        List<M> split(final QueueChecker<? extends M> tester, final M queue, final ExtendedRandom random);
     }
 
     @FunctionalInterface
     protected interface LinearTester<M extends QueueModel> extends Splitter<M> {
-        void test(final QueueChecker<? extends M> tester, final M queue, final Random random);
+        void test(final QueueChecker<? extends M> tester, final M queue, final ExtendedRandom random);
 
         @Override
-        default List<M> split(final QueueChecker<? extends M> tester, final M queue, final Random random) {
+        default List<M> split(final QueueChecker<? extends M> tester, final M queue, final ExtendedRandom random) {
             test(tester, queue, random);
             return List.of();
         }

@@ -2,7 +2,10 @@ package expression.parser;
 
 import base.*;
 import expression.ToMiniString;
-import expression.common.*;
+import expression.common.Expr;
+import expression.common.ExpressionKind;
+import expression.common.Reason;
+import expression.common.TestGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +22,8 @@ public class ParserTestSet<E extends ToMiniString, C> {
 
     private static final List<Integer> TEST_VALUES = new ArrayList<>();
     static {
-        BaseTester.addRange(TEST_VALUES, D, D);
-        BaseTester.addRange(TEST_VALUES, D, -D);
+        Functional.addRange(TEST_VALUES, D, D);
+        Functional.addRange(TEST_VALUES, D, -D);
     }
 
     public static final List<Integer> CONSTS
@@ -94,7 +97,7 @@ public class ParserTestSet<E extends ToMiniString, C> {
         final E safeParsed = parse(safe, variables, false);
 
         checkToString(full, mini, "base", fullParsed);
-        if (tester.mode > 0) {
+        if (tester.mode() > 0) {
             counter.test(() -> Asserts.assertEquals("mini.toMiniString", mini, miniParsed.toMiniString()));
             counter.test(() -> Asserts.assertEquals("safe.toMiniString", mini, safeParsed.toMiniString()));
         }
@@ -107,9 +110,9 @@ public class ParserTestSet<E extends ToMiniString, C> {
                 Functional.map(vars, (i, var) -> Pair.of(var.first(), args -> args.get(i)))
         ));
 
-        check(expected, fullParsed, variables, tester.getRandom().random(variables.size(), ExtendedRandom::nextInt));
+        check(expected, fullParsed, variables, tester.random().random(variables.size(), ExtendedRandom::nextInt));
         if (this.safe) {
-            check(expected, safeParsed, variables, tester.getRandom().random(variables.size(), ExtendedRandom::nextInt));
+            check(expected, safeParsed, variables, tester.random().random(variables.size(), ExtendedRandom::nextInt));
         }
     }
 
@@ -117,9 +120,9 @@ public class ParserTestSet<E extends ToMiniString, C> {
     private static final String LOOKAHEAD = "(?![a-zA-Z0-9<>*/])";
     private static final Pattern SPACES = Pattern.compile(LOOKBEHIND + " | " + LOOKAHEAD + "|" + LOOKAHEAD + LOOKBEHIND);
     private String extraSpaces(final String expression) {
-        return SPACES.matcher(expression).replaceAll(r -> tester.getRandom().randomString(
+        return SPACES.matcher(expression).replaceAll(r -> tester.random().randomString(
                 ExtendedRandom.SPACES,
-                tester.getRandom().nextInt(5)
+                tester.random().nextInt(5)
         ));
     }
 
@@ -130,7 +133,7 @@ public class ParserTestSet<E extends ToMiniString, C> {
     private void checkToString(final String full, final String mini, final String prefix, final ToMiniString parsed) {
         counter.test(() -> {
             assertEquals(prefix + ".toString", full, full, parsed.toString());
-            if (tester.mode > 0) {
+            if (tester.mode() > 0) {
                 assertEquals(full, mini, prefix, parsed.toMiniString());
             }
         });
