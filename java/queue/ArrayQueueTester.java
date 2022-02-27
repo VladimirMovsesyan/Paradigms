@@ -4,7 +4,10 @@ import base.Asserts;
 import base.ExtendedRandom;
 import base.TestCounter;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -36,7 +39,7 @@ public class ArrayQueueTester<M extends Queues.QueueModel> {
             }
 
             @Override
-            public List<M> linearTest(final M queue, final Random random) {
+            public List<M> linearTest(final M queue, final ExtendedRandom random) {
                 return splitter.split(this, queue, random);
             }
         };
@@ -71,7 +74,6 @@ public class ArrayQueueTester<M extends Queues.QueueModel> {
 
     private class Variant extends ReflectionTest {
         private final TestCounter counter;
-        private final ExtendedRandom random = new ExtendedRandom();
 
         public Variant(final TestCounter counter) {
             this.counter = counter;
@@ -111,14 +113,14 @@ public class ArrayQueueTester<M extends Queues.QueueModel> {
 
         private int checkAndSize(final M queue) {
             final int size = queue.size();
-            if (!queue.isEmpty() && random.nextBoolean()) {
-                tester.check(queue, random.getRandom());
+            if (!queue.isEmpty() && random().nextBoolean()) {
+                tester.check(queue, random());
             }
             return size;
         }
 
         protected Object randomElement() {
-            return ELEMENTS[random.nextInt(ELEMENTS.length)];
+            return ELEMENTS[random().nextInt(ELEMENTS.length)];
         }
 
         protected void assertSize(final int size, final M queue) {
@@ -159,23 +161,23 @@ public class ArrayQueueTester<M extends Queues.QueueModel> {
                 queues.add(initial);
                 int ops = 0;
                 for (int i = 0; i < OPERATIONS / TestCounter.DENOMINATOR / TestCounter.DENOMINATOR; i++) {
-                    final M queue = queues.get(random.nextInt(queues.size()));
+                    final M queue = queues.get(random().nextInt(queues.size()));
 
                     final int size = counter.testV(() -> {
-                        if (queue.isEmpty() || random.nextDouble() < addFreq) {
-                            tester.add(queue, randomElement(), random.getRandom());
+                        if (queue.isEmpty() || random().nextDouble() < addFreq) {
+                            tester.add(queue, randomElement(), random());
                         } else {
-                            tester.remove(queue, random.getRandom());
+                            tester.remove(queue, random());
                         }
 
                         return checkAndSize(queue);
                     });
 
-                    if (ops++ >= size && random.nextInt(4) == 0) {
+                    if (ops++ >= size && random().nextInt(4) == 0) {
                         ops -= size;
 
                         counter.test(() -> {
-                            queues.addAll(tester.linearTest(queue, random.getRandom()));
+                            queues.addAll(tester.linearTest(queue, random()));
                             checkAndSize(queue);
                         });
                     }
@@ -183,15 +185,19 @@ public class ArrayQueueTester<M extends Queues.QueueModel> {
 
                 for (final M queue : queues) {
                     counter.test(() -> {
-                        tester.linearTest(queue, random.getRandom());
+                        tester.linearTest(queue, random());
                         checkAndSize(queue);
                         for (int i = queue.size(); i > 0; i--) {
-                            tester.remove(queue, random.getRandom());
+                            tester.remove(queue, random());
                             checkAndSize(queue);
                         }
                     });
                 }
             });
+        }
+
+        private ExtendedRandom random() {
+            return counter.random();
         }
     }
 }

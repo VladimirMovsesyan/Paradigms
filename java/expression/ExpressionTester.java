@@ -21,7 +21,7 @@ import static base.Asserts.assertTrue;
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
-public class ExpressionTester<E extends ToMiniString, C> extends BaseTester {
+public class ExpressionTester<E extends ToMiniString, C> extends ModeTester {
     private final List<Integer> VALUES = IntStream.rangeClosed(-10, 10).boxed().collect(Collectors.toUnmodifiableList());
     private final ExpressionKind<E, C> kind;
 
@@ -58,7 +58,7 @@ public class ExpressionTester<E extends ToMiniString, C> extends BaseTester {
     }
 
     @Override
-    protected void test() {
+    public void test() {
         counter.scope("Basic tests", () -> basic.forEach(Test::test));
         counter.scope("Advanced tests", () -> advanced.forEach(Test::test));
         counter.scope("Random tests", generator::testRandom);
@@ -133,7 +133,7 @@ public class ExpressionTester<E extends ToMiniString, C> extends BaseTester {
     }
 
     public ExpressionTester<E, C> basic(final Node<C> node, final E expression) {
-        final List<Pair<String, E>> variables = kind.variables.generate(random, 3);
+        final List<Pair<String, E>> variables = kind.variables.generate(random(), 3);
         return basic(generator.test(new Expr<>(node, variables), kind.cast(expression)));
     }
 
@@ -169,7 +169,7 @@ public class ExpressionTester<E extends ToMiniString, C> extends BaseTester {
         }
 
         private void test() {
-            final List<Pair<String, E>> variables = kind.variables.generate(random, 3);
+            final List<Pair<String, E>> variables = kind.variables.generate(random(), 3);
             final List<String> names = Functional.map(variables, Pair::first);
             final E actual = kind.cast(this.actual.apply(names));
             final String full = mangle(this.full, names);
@@ -192,7 +192,7 @@ public class ExpressionTester<E extends ToMiniString, C> extends BaseTester {
 
     private final class Generator {
         private final expression.common.Generator<C> generator;
-        private final NodeRenderer<C> renderer = new NodeRenderer<>(random);
+        private final NodeRenderer<C> renderer = new NodeRenderer<>(random());
         private final Renderer<C, Unit, E> expected;
         private final Renderer<C, Unit, E> actual;
         private final Renderer<C, Unit, E> copy;
@@ -204,7 +204,7 @@ public class ExpressionTester<E extends ToMiniString, C> extends BaseTester {
                 final Binary<C, E> binary,
                 final Function<ExtendedRandom, C> randomValue
         ) {
-            generator = new expression.common.Generator<>(random, () -> randomValue.apply(random));
+            generator = new expression.common.Generator<>(random(), () -> randomValue.apply(random()));
             expected = new Renderer<>(expectedConstant::apply);
             actual = new Renderer<>(actualConstant::apply);
             copy = new Renderer<>(actualConstant::apply);
@@ -241,9 +241,9 @@ public class ExpressionTester<E extends ToMiniString, C> extends BaseTester {
                 final E expected = this.expected.render(Unit.INSTANCE, expr);
                 final E actual = this.actual.render(Unit.INSTANCE, expr);
 
-                final List<Pair<String, E>> variables = kind.variables.generate(random, random.nextInt(5) + 1);
+                final List<Pair<String, E>> variables = kind.variables.generate(random(), random().nextInt(5) + 1);
                 final List<String> names = Functional.map(variables, Pair::first);
-                final List<C> values = Stream.generate(() -> kind.randomValue(random))
+                final List<C> values = Stream.generate(() -> kind.randomValue(random()))
                         .limit(variables.size())
                         .collect(Collectors.toUnmodifiableList());
 

@@ -1,10 +1,10 @@
 package expression.parser;
 
 import base.ExtendedRandom;
+import base.ModeTester;
 import base.TestCounter;
 import base.Unit;
 import expression.ToMiniString;
-import expression.common.BaseTester;
 import expression.common.ExpressionKind;
 import expression.common.Renderer;
 import expression.common.TestGenerator;
@@ -17,7 +17,7 @@ import java.util.function.LongUnaryOperator;
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
-public class ParserTester extends BaseTester {
+public class ParserTester extends ModeTester {
     /* package-private */ final TestGenerator<Integer> generator;
     /* package-private */ final Renderer<Integer, Unit, ParserTestSet.TExpression> renderer;
     private final List<ParserTestSet.ParsedKind<?, ?>> kinds = new ArrayList<>();
@@ -25,7 +25,7 @@ public class ParserTester extends BaseTester {
     public ParserTester(final TestCounter counter, final int mode) {
         super(counter, mode);
         renderer = new Renderer<>(c -> vars -> c);
-        final ExtendedRandom random = new ExtendedRandom();
+        final ExtendedRandom random = counter.random();
         generator = new TestGenerator<>(counter, random, random::nextInt, ParserTestSet.CONSTS, true);
     }
 
@@ -44,7 +44,7 @@ public class ParserTester extends BaseTester {
     }
 
     @Override
-    protected void test() {
+    public void test() {
         for (final ParserTestSet.ParsedKind<?, ?> kind : kinds) {
             test(kind);
         }
@@ -56,10 +56,6 @@ public class ParserTester extends BaseTester {
 
     public TestCounter getCounter() {
         return counter;
-    }
-
-    public ExtendedRandom getRandom() {
-        return random;
     }
 
     protected int cast(final long value) {

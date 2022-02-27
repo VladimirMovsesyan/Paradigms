@@ -1,7 +1,4 @@
-package expression.common;
-
-import base.Asserts;
-import base.TestCounter;
+package base;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -15,7 +12,7 @@ import java.util.stream.Collectors;
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
-public final class Selector<T extends BaseTester> {
+public final class ModeSelector<T extends ModeTester> {
     private final Class<?> owner;
     private final BiFunction<TestCounter, Integer, T> tester;
     private final List<String> modes;
@@ -23,23 +20,23 @@ public final class Selector<T extends BaseTester> {
 
     private final Map<String, List<Consumer<? super T>>> variants = new LinkedHashMap<>();
 
-    private Selector(final Class<?> owner, final BiFunction<TestCounter, Integer, T> tester, final Consumer<T> freezer, final String... modes) {
+    private ModeSelector(final Class<?> owner, final BiFunction<TestCounter, Integer, T> tester, final Consumer<T> freezer, final String... modes) {
         this.owner = owner;
         this.tester = tester;
         this.freezer = freezer;
         this.modes = List.of(modes);
     }
 
-    public static <T extends BaseTester> Selector<T> create(final Class<?> owner, final BiFunction<TestCounter, Integer, T> tester, final Consumer<T> freezer, final String... modes) {
-        return new Selector<>(owner, tester, freezer, modes);
+    public static <T extends ModeTester> ModeSelector<T> create(final Class<?> owner, final BiFunction<TestCounter, Integer, T> tester, final Consumer<T> freezer, final String... modes) {
+        return new ModeSelector<>(owner, tester, freezer, modes);
     }
 
-    public static <T extends BaseTester> Selector<T> create(final Class<?> owner, final BiFunction<TestCounter, Integer, T> tester, final String... modes) {
+    public static <T extends ModeTester> ModeSelector<T> create(final Class<?> owner, final BiFunction<TestCounter, Integer, T> tester, final String... modes) {
         return create(owner, tester, null, modes);
     }
 
     @SafeVarargs
-    public final Selector<T> variant(final String name, final Consumer<? super T>... operations) {
+    public final ModeSelector<T> variant(final String name, final Consumer<? super T>... operations) {
         Asserts.assertTrue("Duplicate variant " + name, variants.put(name, List.of(operations)) == null);
         return this;
     }

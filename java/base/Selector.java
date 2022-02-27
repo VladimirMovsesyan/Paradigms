@@ -6,31 +6,32 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
-public final class ModelessSelector<T> {
+public final class Selector<V> {
     private final Class<?> owner;
-    private final Supplier<T> tester;
-    private final BiConsumer<T, TestCounter> runner;
+    private final BiConsumer<V, TestCounter> test;
 
-    private final Map<String, List<Consumer<? super T>>> variants = new LinkedHashMap<>();
+    private final Map<String, List<V>> variants = new LinkedHashMap<>();
 
-    private ModelessSelector(final Class<?> owner, final Supplier<T> tester, final BiConsumer<T, TestCounter> runner) {
+    private Selector(final Class<?> owner, final BiConsumer<V, TestCounter> test) {
         this.owner = owner;
-        this.tester = tester;
-        this.runner = runner;
+        this.test = test;
     }
 
-    public static <T> ModelessSelector<T> create(final Class<?> owner, final Supplier<T> tester, final BiConsumer<T, TestCounter> runner) {
-        return new ModelessSelector<>(owner, tester, runner);
+    public static <V> Selector<V> create(final Class<?> owner, final BiConsumer<V, TestCounter> test) {
+        return new Selector<>(owner, test);
+    }
+
+    public static Selector<Consumer<TestCounter>> create(final Class<?> owner) {
+        return new Selector<>(owner, Consumer::accept);
     }
 
     @SafeVarargs
-    public final ModelessSelector<T> variant(final String name, final Consumer<? super T>... operations) {
+    public final Selector<V> variant(final String name, final V... operations) {
         Asserts.assertTrue("Duplicate variant " + name, variants.put(name, List.of(operations)) == null);
         return this;
     }
@@ -56,10 +57,9 @@ public final class ModelessSelector<T> {
 
         vars.forEach(var -> check(variants.containsKey(var), "Unknown variant '%s'", var));
 
-        final T test = tester.get();
-        vars.forEach(var -> variants.get(var).forEach(v -> v.accept(test)));
         final TestCounter counter = new TestCounter(owner, Map.of("variant", String.join("+", vars)));
-        runner.accept(test, counter);
+        vars.forEach(var -> counter.scope("Testing " + var,
+                () -> variants.get(var).forEach(variant -> test.accept(variant, counter))));
         counter.printStatus();
     }
 
