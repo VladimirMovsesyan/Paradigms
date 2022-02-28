@@ -12,7 +12,7 @@ import java.util.function.Consumer;
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
 public final class QueueTest {
-    public static final Selector<?> SELECTOR = Selector.<Consumer<TestCounter>>create(QueueTest.class)
+    public static final Selector SELECTOR = new Selector(QueueTest.class)
             .variant("Base", variant(QueueModel.class, d -> () -> d))
             ;
 

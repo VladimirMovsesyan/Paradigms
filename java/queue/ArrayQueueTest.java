@@ -12,8 +12,8 @@ import static queue.Queues.*;
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
 public final class ArrayQueueTest {
-    public static final Selector<?> SELECTOR = Selector.create(ArrayQueueTest.class)
-            .variant("Base", variant(Queues.QueueModel.class, d -> () -> d))
+    public static final Selector SELECTOR = new Selector(ArrayQueueTest.class)
+            .variant("Base", variant(QueueModel.class, d -> () -> d))
             .variant("DequeCount", variant(DequeCountModel.class, (DequeChecker<DequeCountModel>) d -> () -> d, DEQUE_COUNT))
             .variant("DequeIndex", variant(DequeIndexModel.class, (DequeChecker<DequeIndexModel>) d -> () -> d, DEQUE_INDEX))
             ;

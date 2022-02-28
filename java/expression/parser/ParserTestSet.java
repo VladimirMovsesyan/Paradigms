@@ -209,6 +209,10 @@ public class ParserTestSet<E extends ToMiniString, C> {
             return parser.parse(expression, variables);
         }
 
+        @Override
+        public String toString() {
+            return kind.toString();
+        }
     }
 
     @FunctionalInterface

@@ -21,7 +21,7 @@ import static base.Asserts.assertTrue;
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
-public class ExpressionTester<E extends ToMiniString, C> extends ModeTester {
+public class ExpressionTester<E extends ToMiniString, C> extends Tester {
     private final List<Integer> VALUES = IntStream.rangeClosed(-10, 10).boxed().collect(Collectors.toUnmodifiableList());
     private final ExpressionKind<E, C> kind;
 
@@ -33,7 +33,6 @@ public class ExpressionTester<E extends ToMiniString, C> extends ModeTester {
 
     protected ExpressionTester(
             final TestCounter counter,
-            final int mode,
             final ExpressionKind<E, C> kind,
             final Function<C, E> expectedConstant,
             final Binary<C, E> binary,
@@ -42,7 +41,7 @@ public class ExpressionTester<E extends ToMiniString, C> extends ModeTester {
             final BinaryOperator<C> mul,
             final BinaryOperator<C> div
     ) {
-        super(counter, mode);
+        super(counter);
         this.kind = kind;
 
         generator = new Generator(expectedConstant, kind::constant, binary, kind::randomValue);
@@ -66,7 +65,7 @@ public class ExpressionTester<E extends ToMiniString, C> extends ModeTester {
 
     private void checkEqualsAndToString(final String full, final String mini, final ToMiniString expression, final ToMiniString copy) {
         checkToString("toString", full, expression.toString());
-        if (mode > 0) {
+        if (mode() > 0) {
             checkToString("toMiniString", mini, expression.toMiniString());
         }
 

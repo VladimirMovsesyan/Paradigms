@@ -6,7 +6,6 @@ import base.Pair;
 import expression.ToMiniString;
 
 import java.util.List;
-import java.util.function.Function;
 
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
@@ -58,10 +57,6 @@ public class ExpressionKind<E extends ToMiniString, C> {
         return type.randomValue(random);
     }
 
-    public List<C> randomValues(final ExtendedRandom random, final int count) {
-        return random.random(count, (Function<ExtendedRandom, C>) type::randomValue);
-    }
-
     public List<List<C>> allValues(final int length, final List<Integer> values) {
         return Functional.allValues(fromInts(values), length);
     }
@@ -70,6 +65,10 @@ public class ExpressionKind<E extends ToMiniString, C> {
         return Functional.map(values, type::fromInt);
     }
 
+    @Override
+    public String toString() {
+        return kind.getName();
+    }
 
     @FunctionalInterface
     public interface Variables<E> {

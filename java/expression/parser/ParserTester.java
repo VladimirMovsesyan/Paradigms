@@ -1,7 +1,7 @@
 package expression.parser;
 
 import base.ExtendedRandom;
-import base.ModeTester;
+import base.Tester;
 import base.TestCounter;
 import base.Unit;
 import expression.ToMiniString;
@@ -17,13 +17,13 @@ import java.util.function.LongUnaryOperator;
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
-public class ParserTester extends ModeTester {
+public class ParserTester extends Tester {
     /* package-private */ final TestGenerator<Integer> generator;
     /* package-private */ final Renderer<Integer, Unit, ParserTestSet.TExpression> renderer;
     private final List<ParserTestSet.ParsedKind<?, ?>> kinds = new ArrayList<>();
 
-    public ParserTester(final TestCounter counter, final int mode) {
-        super(counter, mode);
+    public ParserTester(final TestCounter counter) {
+        super(counter);
         renderer = new Renderer<>(c -> vars -> c);
         final ExtendedRandom random = counter.random();
         generator = new TestGenerator<>(counter, random, random::nextInt, ParserTestSet.CONSTS, true);
@@ -46,7 +46,7 @@ public class ParserTester extends ModeTester {
     @Override
     public void test() {
         for (final ParserTestSet.ParsedKind<?, ?> kind : kinds) {
-            test(kind);
+            counter.scope(kind.toString(), () -> test(kind));
         }
     }
 
