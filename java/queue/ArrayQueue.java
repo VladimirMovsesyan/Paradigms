@@ -4,38 +4,40 @@ import java.util.Arrays;
 
 public class ArrayQueue {
     private Object[] elements = new Object[10];
-    private int rightSize = 0;
-    private int leftSize = 0;
+    private int head = 0;
+    private int tail = 0;
 
     public void enqueue(Object element) {
-        this.elements[this.rightSize++] = element;
+        elements[head++] = element;
         ensureArraySize();
     }
 
     private void ensureArraySize() {
-        if (this.elements.length <= this.rightSize) {
-            this.elements = Arrays.copyOf(this.elements, this.rightSize * 2);
+        if (elements.length <= head) {
+            elements = Arrays.copyOf(elements, head * 2);
         }
     }
 
     public Object element() {
-        return this.elements[this.leftSize];
+        return elements[tail];
     }
 
     public Object dequeue() {
-        return this.elements[this.leftSize++];
+        Object result = elements[tail++];
+        elements[tail - 1] = null;
+        return result;
     }
 
     public int size() {
-        return this.rightSize - this.leftSize;
+        return head - tail;
     }
 
     public boolean isEmpty() {
-        return this.leftSize == this.rightSize;
+        return tail == head;
     }
 
     public void clear() {
-        this.leftSize = this.rightSize = 0;
-        this.elements = new Object[10];
+        tail = head = 0;
+        elements = new Object[10];
     }
 }
