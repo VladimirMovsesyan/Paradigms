@@ -1,5 +1,6 @@
 package queue;
 
+import base.ExtendedRandom;
 import base.Selector;
 import base.TestCounter;
 import queue.Queues.QueueChecker;
@@ -44,9 +45,81 @@ public final class QueueTest {
         return List.of(tester.cast(result));
     };
 
+    // === If
+
+    /* package-private */ interface IfModel extends Queues.QueueModel {
+        default void removeIf(final Predicate<Object> p) {
+            model().removeIf(p);
+        }
+
+        default void retainIf(final Predicate<Object> p) {
+            model().removeIf(Predicate.not(p));
+        }
+    }
+
+    /* package-private */ static Predicate<Object> randomPredicate(final Queues.QueueChecker<? extends Queues.QueueModel> tester, final ExtendedRandom random) {
+        return new Predicate<>() {
+            final Object element = tester.randomElement(random);
+
+            @Override
+            public boolean test(final Object o) {
+                return o == element;
+            }
+
+            @Override
+            public String toString() {
+                return "== " + element;
+            }
+        };
+    }
+
+    /* package-private */ static final Queues.LinearTester<IfModel> IF = (tester, queue, random) -> {
+        if (random.nextBoolean()) {
+            queue.removeIf(randomPredicate(tester, random));
+        } else {
+            queue.retainIf(randomPredicate(tester, random));
+        }
+    };
+
+
+    // === While
+
+    /* package-private */ interface WhileModel extends Queues.QueueModel {
+        // Deliberately ugly implementation
+        default void dropWhile(final Predicate<Object> p) {
+            final boolean[] remove = {true};
+            model().removeIf(e -> remove[0] &= p.test(e));
+        }
+
+        // Deliberately ugly implementation
+        default void takeWhile(final Predicate<Object> p) {
+            final boolean[] keep = {true};
+            model().removeIf(e -> !(keep[0] &= p.test(e)));
+        }
+    }
+
+    /* package-private */ static final Queues.LinearTester<WhileModel> WHILE = (tester, queue, random) -> {
+        if (random.nextBoolean()) {
+            queue.takeWhile(randomPredicate(tester, random));
+        } else {
+            queue.dropWhile(randomPredicate(tester, random));
+        }
+    };
+
+
+    /* package-private */ interface IfWhileModel extends IfModel, WhileModel {
+    }
+
+    /* package-private */ static final Queues.LinearTester<IfWhileModel> IF_WHILE = (tester, queue, random) -> {
+        final Queues.LinearTester<IfWhileModel> t = random.nextBoolean() ? IF::test : WHILE::test;
+        t.test(tester, queue, random);
+    };
+
+
     public static final Selector SELECTOR = new Selector(QueueTest.class)
             .variant("Base", variant(QueueModel.class, d -> () -> d))
             .variant("Functions", variant(FunctionsModel.class, d -> () -> d, FUNCTIONS))
+            .variant("IfWhile", variant(IfWhileModel.class, d -> () -> d, IF_WHILE))
             ;
 
     private QueueTest() {

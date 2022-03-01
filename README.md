@@ -2,7 +2,7 @@
 
 [Условия домашних заданий](https://www.kgeorgiy.info/courses/paradigms/homeworks.html)
 
-## Домашнее задание X. Вычисление в различных типах
+## Домашнее задание 5. Вычисление в различных типах
 
 Модификации
  * *Base*
@@ -28,14 +28,26 @@
  * *Базовая*
     * [Исходный код тестов](java/queue/QueueTest.java)
     * [Откомпилированные тесты](artifacts/queue/QueueTest.jar)
- * *Functions* (сложная)
+ * *Functions* (36, 37)
     * Добавить в интерфейс очереди и реализовать методы
         * `filter(predicate)` – создать очередь, содержащую элементы, удовлетворяющие
-            [предикату](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Predicate.html)
+            [предикату](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Predicate.html)
         * `map(function)` – создать очередь, содержащую результаты применения
-            [функции](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Function.html)
+            [функции](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html)
     * Исходная очередь должна остаться неизменной
     * Тип возвращаемой очереди должен соответствовать типу исходной очереди
+    * Взаимный порядок элементов должен сохраняться
+    * Дублирования кода быть не должно
+ * *IfWhile* (38, 39)
+    * Добавить в интерфейс очереди и реализовать методы
+        * `removeIf(predicate)` – удалить элементы, удовлетворяющие
+            [предикату](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Predicate.html)
+        * `retainIf(predicate)` – удалить элементы, не удовлетворяющие
+            [предикату](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Predicate.html)
+        * `takeWhile(predicate)` – сохранить подряд идущие элементы, удовлетворяющие
+            [предикату](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Predicate.html)
+        * `dropWhile(predicate)` – удалить подряд идущие элементы, не удовлетворяющие
+            [предикату](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Predicate.html)
     * Взаимный порядок элементов должен сохраняться
     * Дублирования кода быть не должно
 
