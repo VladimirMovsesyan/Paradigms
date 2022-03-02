@@ -14,7 +14,7 @@ import java.util.stream.Stream;
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
 public class GenericTester extends Tester {
-    private static final int SIZE = 20 / TestCounter.DENOMINATOR2;
+    private static final int SIZE = 10;
     private static final int MAX = Integer.MAX_VALUE - 1;
     private static final int MIN = Integer.MIN_VALUE;
     private static final List<Pair<String, F<?>>> VARIABLES = List.of(
@@ -61,7 +61,8 @@ public class GenericTester extends Tester {
         );
         counter.scope(
                 "random",
-                () -> generator.testRandom(TestCounter.DENOMINATOR * 5,
+                () -> generator.testRandom(
+                        20 + (TestCounter.DENOMINATOR - 1) * 2,
                         VARS,
                         test -> test(test.expr, test.full, false)
                 )
