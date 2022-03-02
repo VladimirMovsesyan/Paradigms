@@ -46,7 +46,7 @@
             [предикату](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Predicate.html)
         * `takeWhile(predicate)` – сохранить подряд идущие элементы, удовлетворяющие
             [предикату](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Predicate.html)
-        * `dropWhile(predicate)` – удалить подряд идущие элементы, не удовлетворяющие
+        * `dropWhile(predicate)` – удалить подряд идущие элементы, удовлетворяющие
             [предикату](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Predicate.html)
     * Взаимный порядок элементов должен сохраняться
     * Дублирования кода быть не должно
