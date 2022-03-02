@@ -56,6 +56,9 @@ public final class Operations {
 
     public static final Operation ABS = unary("abs", Math::abs);
 
+    private Operations() {
+    }
+
     @FunctionalInterface
     public interface Operation extends Consumer<ParserTester> {}
 

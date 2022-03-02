@@ -36,8 +36,8 @@ public class ExceptionsTester extends ParserTester {
             Op.of("Spaces in numbers", "10 20")
     ));
 
-    public ExceptionsTester(final TestCounter counter, final int mode) {
-        super(counter, mode);
+    public ExceptionsTester(final TestCounter counter) {
+        super(counter);
     }
 
 
