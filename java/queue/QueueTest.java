@@ -42,15 +42,5 @@ public final class QueueTest {
         return variant(type, tester, (t, q, r) -> List.of());
     }
 
-    /* package-private */ static final Queues.LinearTester<CountIfModel> COUNT_IF =
-            (tester, queue, random) -> queue.countIf(tester.randomElement(random)::equals);
-
-    /* package-private */ static final Queues.LinearTester<IndexIfModel> INDEX_IF = (tester, queue, random) -> {
-        if (random.nextBoolean()) {
-            queue.indexIf(tester.randomElement(random)::equals);
-        } else {
-            queue.lastIndexIf(tester.randomElement(random)::equals);
-        }
-    };
 
 }

@@ -336,4 +336,38 @@ public final class Queues {
         final Queues.LinearTester<IfWhileModel> t = random.nextBoolean() ? IF::test : WHILE::test;
         t.test(tester, queue, random);
     };
+
+    // === CountIf
+
+    /* package-private */ interface CountIfModel extends ReflectionModel {
+        default int countIf(final Predicate<Object> p) {
+            return reduce(0, p, (v, i) -> v + 1);
+        }
+    }
+
+    /* package-private */ static final Queues.LinearTester<CountIfModel> COUNT_IF =
+            (tester, queue, random) -> queue.countIf(tester.randomElement(random)::equals);
+
+    // === IndexIf
+
+    /* package-private */
+    interface IndexIfModel extends ReflectionModel {
+        default int indexIf(final Predicate<Object> p) {
+            return reduce(-1, p, (v, i) -> v == -1 ? i : v);
+        }
+
+        default int lastIndexIf(final Predicate<Object> p) {
+            return reduce(-1, p, (v, i) -> i);
+        }
+    }
+
+    /* package-private */ static final Queues.LinearTester<IndexIfModel> INDEX_IF = (tester, queue, random) -> {
+        if (random.nextBoolean()) {
+            queue.indexIf(tester.randomElement(random)::equals);
+        } else {
+            queue.lastIndexIf(tester.randomElement(random)::equals);
+        }
+    };
+
+
 }
