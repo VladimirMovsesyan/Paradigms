@@ -28,6 +28,17 @@
  * *Базовая*
     * [Исходный код тестов](java/queue/QueueTest.java)
     * [Откомпилированные тесты](artifacts/queue/QueueTest.jar)
+ * *CountIf* (31-33)
+    * Реализовать метод `countIf`, возвращающий число элеменов очереди, удовлетворяющих
+      [предикату](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Predicate.html).
+ * *IndexIf* (34, 35)
+    * Реализовать метод
+        * `indexIf`, возвращающий индекс первого элемента, удовлетворяющего
+        [предикату](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Predicate.html);
+        * `lastIndexIf`, возвращающий индекс последнего элемента, удовлетворяющего
+        [предикату](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Predicate.html).
+    * Индексы отсчитываются с головы очереди.
+    * Если искомого элемента нет, методы должны возвращать `-1`.
  * *Functions* (36, 37)
     * Добавить в интерфейс очереди и реализовать методы
         * `filter(predicate)` – создать очередь, содержащую элементы, удовлетворяющие
@@ -50,6 +61,7 @@
             [предикату](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Predicate.html)
     * Взаимный порядок элементов должен сохраняться
     * Дублирования кода быть не должно
+
 
 
 ## Домашнее задание 3. Очередь на массиве
