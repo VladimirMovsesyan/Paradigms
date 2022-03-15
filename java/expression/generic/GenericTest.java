@@ -134,6 +134,9 @@ public final class GenericTest {
             .binary("-", (a, b) -> i(a - (long) b))
             .binary("*", (a, b) -> i(a * (long) b))
             .binary("/", (a, b) -> i(a / (long) b))
+            .unary("count", Integer::bitCount)
+            .binary("min", Math::min)
+            .binary("max", Math::max)
             ;
 
     @SuppressWarnings("Convert2MethodRef")
@@ -142,6 +145,9 @@ public final class GenericTest {
             .binary("-", (a, b) -> a - b)
             .binary("*", (a, b) -> a * b)
             .binary("/", (a, b) -> a / b)
+            .unary("count", a -> (double) Long.bitCount(Double.doubleToLongBits(a)))
+            .binary("min", Math::min)
+            .binary("max", Math::max)
             ;
 
     private static final Mode<BigInteger> BIG_INTEGER = mode("bi", BigInteger::valueOf)
@@ -149,6 +155,9 @@ public final class GenericTest {
             .binary("-", BigInteger::subtract)
             .binary("*", BigInteger::multiply)
             .binary("/", BigInteger::divide)
+            .unary("count", a -> BigInteger.valueOf(a.bitCount()))
+            .binary("min", BigInteger::min)
+            .binary("max", BigInteger::max)
             ;
 
     public static final Selector SELECTOR = Selector.composite(GenericTest.class, GenericTester::new, "easy", "hard")
