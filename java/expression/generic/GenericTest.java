@@ -12,6 +12,56 @@ import java.util.function.*;
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
 public final class GenericTest {
+    private static final Consumer<GenericTester> COUNT = unary("count");
+    private static final Consumer<GenericTester> MIN = binary("min", 50);
+    private static final Consumer<GenericTester> MAX = binary("max", 50);
+
+    private static final int TRUNCATE = 10;
+    private static int truncate(final int v) {
+        return v / TRUNCATE * TRUNCATE;
+    }
+    private static final Mode<Integer> INTEGER_TRUNCATE = mode("t", GenericTest::truncate)
+            .binary("+", (a, b) -> truncate(a + b))
+            .binary("-", (a, b) -> truncate(a - b))
+            .binary("*", (a, b) -> truncate(a * b))
+            .binary("/", (a, b) -> truncate(a / b))
+            .unary("abs", Math::abs)
+            .unary("square", a -> truncate(a * a))
+            .binary("mod", (a, b) -> truncate(a % b))
+            .unary("count", a -> truncate(Integer.bitCount(a)))
+            .binary("min", Math::min)
+            .binary("max", Math::max)
+            ;
+
+    @SuppressWarnings("Convert2MethodRef")
+    private static final Mode<Integer> INTEGER_UNCHECKED = mode("u", c -> c)
+            .binary("+", (a, b) -> a + b)
+            .binary("-", (a, b) -> a - b)
+            .binary("*", (a, b) -> a * b)
+            .binary("/", (a, b) -> a / b)
+            .unary("abs", Math::abs)
+            .unary("square", a -> a * a)
+            .binary("mod", (a, b) -> a % b)
+            .unary("count", Integer::bitCount)
+            .binary("min", Math::min)
+            .binary("max", Math::max)
+            ;
+
+    @SuppressWarnings("Convert2MethodRef")
+    private static final Mode<Long> LONG = mode("l", c -> (long) c)
+            .binary("+", (a, b) -> a + b)
+            .binary("-", (a, b) -> a - b)
+            .binary("*", (a, b) -> a * b)
+            .binary("/", (a, b) -> a / b)
+            .unary("abs", Math::abs)
+            .unary("abs", a -> Math.abs(a))
+            .unary("square", a -> a * a)
+            .binary("mod", (a, b) -> a % b)
+            .unary("count", i -> (long) Long.bitCount(i))
+            .binary("min", Math::min)
+            .binary("max", Math::max)
+            ;
+
     private GenericTest() {
     }
 
@@ -49,6 +99,10 @@ public final class GenericTest {
     private static final Consumer<GenericTester> MULTIPLY = binary("*", 301);
     private static final Consumer<GenericTester> DIVIDE = binary("/", -300);
 
+    private static Consumer<GenericTester> unary(final String name) {
+        return tester -> tester.unary(name);
+    }
+
     private static Consumer<GenericTester> binary(final String name, final int priority) {
         return tester -> tester.binary(name, priority);
     }
@@ -84,6 +138,7 @@ public final class GenericTest {
 
     public static final Selector SELECTOR = Selector.composite(GenericTest.class, GenericTester::new, "easy", "hard")
             .variant("Base", INTEGER_CHECKED, DOUBLE, BIG_INTEGER, ADD, SUBTRACT, MULTIPLY, DIVIDE)
+            .variant("CmmUlt", COUNT, MIN, MAX, INTEGER_UNCHECKED, LONG, INTEGER_TRUNCATE)
             .selector();
 
     private static <T> Mode<T> mode(final String mode, final IntFunction<T> constant) {
