@@ -62,6 +62,21 @@ public final class GenericTest {
             .binary("max", Math::max)
             ;
 
+    @SuppressWarnings("Convert2MethodRef")
+    private static final Mode<Float> FLOAT = mode("f", c -> (float) c)
+            .binary("+", (a, b) -> a + b)
+            .binary("-", (a, b) -> a - b)
+            .binary("*", (a, b) -> a * b)
+            .binary("/", (a, b) -> a / b)
+            .unary("abs", a -> Math.abs(a))
+            .unary("square", a -> a * a)
+            .binary("mod", (a, b) -> a % b)
+            .unary("count", a -> (float) Integer.bitCount(Float.floatToIntBits(a)))
+            .binary("min", Math::min)
+            .binary("max", Math::max)
+            ;
+
+
     private GenericTest() {
     }
 
@@ -138,6 +153,7 @@ public final class GenericTest {
 
     public static final Selector SELECTOR = Selector.composite(GenericTest.class, GenericTester::new, "easy", "hard")
             .variant("Base", INTEGER_CHECKED, DOUBLE, BIG_INTEGER, ADD, SUBTRACT, MULTIPLY, DIVIDE)
+            .variant("CmmUlf", COUNT, MIN, MAX, INTEGER_UNCHECKED, LONG, FLOAT)
             .variant("CmmUlt", COUNT, MIN, MAX, INTEGER_UNCHECKED, LONG, INTEGER_TRUNCATE)
             .selector();
 
