@@ -4,59 +4,57 @@ import java.util.Arrays;
 
 public class ArrayQueueModule {
     private static Object[] elements = new Object[10];
-    private static int head = 0;
     private static int tail = 0;
+    private static int head = 0;
     private static int size = 0;
 
     public static void enqueue(Object element) {
-        if (head == tail && size != 0) {
+        size++;
+        if (tail + 1 == head) {
             restructElements();
         }
-        size++;
-        if (elements[0] == null) {
-            head = 0;
+        if (elements[0] == null && head > 1) {
+            tail = 0;
         }
-        elements[head++] = element;
+        elements[tail++] = element;
         ensureArraySize();
     }
 
     private static void restructElements() {
-        Object[] temp = new Object[Math.max(size * 2, 10)];
-        int ind = 0;
-        if (elements[tail] != null) {
-            temp[ind++] = elements[tail];
-        }
-        for (int i = tail + 1; i != head; i++) {
+        Object[] temp = new Object[elements.length];
+        int index = 0;
+
+        for (int i = head; i != tail; i++, index++) {
             if (elements[i] == null) {
                 i = 0;
             }
-            temp[ind++] = elements[i];
+            temp[index] = elements[i];
         }
         elements = temp;
-        head = ind;
-        tail = 0;
+        head = 0;
+        tail = index;
     }
 
     private static void ensureArraySize() {
-        if (elements.length <= head) {
-            elements = Arrays.copyOf(elements, head * 2);
+        if (elements.length == tail) {
+            elements = Arrays.copyOf(elements, 2 * elements.length);
         }
     }
 
     public static Object element() {
-        if (elements[tail] == null) {
-            tail = 0;
+        if (elements[head] == null) {
+            head = 0;
         }
-        return elements[tail];
+        return elements[head];
     }
 
     public static Object dequeue() {
         size--;
-        Object result = elements[tail++];
-        elements[tail - 1] = null;
-        if (elements[tail] == null) {
-            tail = 0;
+        if (elements[head] == null) {
+            head = 0;
         }
+        Object result = elements[head];
+        elements[head++] = null;
         return result;
     }
 
@@ -71,5 +69,30 @@ public class ArrayQueueModule {
     public static void clear() {
         tail = head = size = 0;
         elements = new Object[10];
+    }
+
+    public static Object indexOf(Object element) {
+        for (int i = head, index = 0; i != tail; i++, index++) {
+            if (elements[i] == null) {
+                i = 0;
+            }
+            if (elements[i].equals(element)) {
+                return index;
+            }
+        }
+        return -1;
+    }
+
+    public static Object lastIndexOf(Object element) {
+        int result = -1;
+        for (int i = head, index = 0; i != tail; i++, index++) {
+            if (elements[i] == null) {
+                i = 0;
+            }
+            if (elements[i].equals(element)) {
+                result = index;
+            }
+        }
+        return result;
     }
 }
