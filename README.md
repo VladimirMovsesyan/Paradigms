@@ -56,6 +56,8 @@
  * [Типы](javascript/examples/1_1_types.js)
  * [Функции](javascript/examples/1_2_functions.js)
  * [Функции высшего порядка](javascript/examples/1_3_functions-hi.js).
+   Обратите внимание, что функции `array.map` и 
+   `array.reduce` (аналог `leftFold` входят в стандартную библиотеку).
    Обратите внимание на реализацию функции `mCurry`.
  * [Вектора и матрицы](javascript/examples/1_4_vectors.js).
 
