@@ -164,7 +164,7 @@ public final class GenericTest {
         return (short) x;
     }
 
-    private static final Mode<Short> SHORT = mode("s", c -> (short) c, c -> (short) c)
+    private static final Mode<Short> SHORT = mode("s", c -> (short) c)
             .binary("+", (a, b) -> s(a + b))
             .binary("-", (a, b) -> s(a - b))
             .binary("*", (a, b) -> s(a * b))
