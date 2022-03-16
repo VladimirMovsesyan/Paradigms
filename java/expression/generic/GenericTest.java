@@ -162,6 +162,8 @@ public final class GenericTest {
 
     public static final Selector SELECTOR = Selector.composite(GenericTest.class, GenericTester::new, "easy", "hard")
             .variant("Base", INTEGER_CHECKED, DOUBLE, BIG_INTEGER, ADD, SUBTRACT, MULTIPLY, DIVIDE)
+            .variant("Cmm", COUNT, MIN, MAX)
+            .variant("CmmUls", COUNT, MIN, MAX, INTEGER_UNCHECKED, LONG, SHORT)
             .variant("CmmUlf", COUNT, MIN, MAX, INTEGER_UNCHECKED, LONG, FLOAT)
             .variant("CmmUlt", COUNT, MIN, MAX, INTEGER_UNCHECKED, LONG, INTEGER_TRUNCATE)
             .selector();
