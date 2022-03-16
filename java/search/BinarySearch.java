@@ -5,16 +5,10 @@ public class BinarySearch {
     // Pred: args.length > 0 && forAll args[i] is number
     // Post: answer printed
     public static void main(String[] args) {
-        // Pred: true
-        // Post: x = Integer.parseInt(args[0])
         int x = Integer.parseInt(args[0]);
 
-        // Pred: true
-        // Post: arr = new int[args.length - 1]
         int[] arr = new int[args.length - 1];
         
-        // Pred: true
-        // Post: ind = 1
         int ind = 1;
 
         // Pred: arr.length > 0
@@ -30,16 +24,12 @@ public class BinarySearch {
             ind++;
         }
 
-        // Pred: true
-        // Post: binSearch = new BSIterative();
         BSIterative binSearch = new BSIterative();
 
-        // Pred: arr is sorted non-ascending
+        // Pred: arr is forAll arr[i], where i > 0 and i < n arr[i] <= arr[i - 1]
         // Post: answer = (arr.length > 0 ? (ind, where arr[ind] = value) : arr.length) && ind = min(ind), where arr[ind] = value
         int answer = binSearch.binarySearchIterative(arr, x);
 
-        // Pred: true
-        // Post: printed answer
         System.out.println(answer);
     }
 }

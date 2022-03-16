@@ -1,15 +1,11 @@
 package search;
 
 public class BSIterativeDerivative {
-    // Pred: arr is sorted by asceding
+    // Pred: forAll arr[i], where i > 0 and i < n arr[i] >= arr[i - 1]
     // Post: answer = k, where is array shift equals k && return answer
     protected int binarySearchIterative(int[] arr) {
-        // Pred: true 
-        // Post: left = -1
         int left = -1;
 
-        // Pred: true
-        // Post: right = arr.length - 1
         int right = arr.length - 1;
 
 

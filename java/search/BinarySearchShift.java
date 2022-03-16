@@ -5,12 +5,8 @@ public class BinarySearchShift {
     // Pred: args.length > 0 && forAll args[i] is number
     // Post: shift of array printed
     public static void main(String[] args) {
-        // Pred: true
-        // Post: arr = new int[args.length]
         int[] arr = new int[args.length];
         
-        // Pred: true
-        // Post: ind = 0
         int ind = 0;
 
         // Pred: arr.length > 0
@@ -25,17 +21,12 @@ public class BinarySearchShift {
             ind++;
         }
 
-        // Pred: true
-        // Post: binSearch = new BSIterativeDerivative();
-
         BSRecursiveDerivative binSearch = new BSRecursiveDerivative();
 
-        // Pred: arr.length > 0 && array is sorted by asceding and shifted for k, where k >= 0
+        // Pred: arr.length > 0 && forAll arr[i], where i > 0 and i < n arr[i] > arr[i - 1] and shifted for k, where k >= 0
         // Post: answer = k
         int answer = binSearch.BinarySearchRecursive(arr);
 
-        // Pred: true
-        // Post: printed answer
         System.out.println(answer);
     }
 }

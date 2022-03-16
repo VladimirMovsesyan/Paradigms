@@ -1,15 +1,11 @@
 package search;
 
 public class BSIterative {
-    // Pred: arr is sorted by desceding
+    // Pred: forAll arr[i], where i > 0 and i < n arr[i] <= arr[i - 1]
     // Post: answer = (arr.length > 0 ? (ind, where arr[ind] = value) : arr.length) && ind = min(ind), where arr[ind] = value && return answer
     protected int binarySearchIterative(int[] arr, int val) {
-        // Pred: true 
-        // Post: left = -1
         int left = -1;
 
-        // Pred: true
-        // Post: right = arr.length
         int right = arr.length;
 
 
