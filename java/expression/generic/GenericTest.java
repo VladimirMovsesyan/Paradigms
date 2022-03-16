@@ -159,6 +159,11 @@ public final class GenericTest {
             .binary("min", BigInteger::min)
             .binary("max", BigInteger::max)
             ;
+
+    private static short s(final int x) {
+        return (short) x;
+    }
+
     private static final Mode<Short> SHORT = mode("s", c -> (short) c, c -> (short) c)
             .binary("+", (a, b) -> s(a + b))
             .binary("-", (a, b) -> s(a - b))
