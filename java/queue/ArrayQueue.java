@@ -1,17 +1,17 @@
 package queue;
 
 import java.util.Arrays;
+import java.util.function.Predicate;
 
-public class ArrayQueue {
+public class ArrayQueue extends AbstractQueue {
     private Object[] elements = new Object[10];
     private int tail = 0;
     private int head = 0;
-    private int size = 0;
 
     // Pred: element != null
     // Post: forAll i=head..tail elements[i] != null && elements.length != tail && elements[tail - 1] == element && size = size + 1
-    public void enqueue(Object element) {
-        size++;
+    @Override
+    protected void enqueueImpl(Object element) {
         if (tail + 1 == head) {
             restructElements();
         }
@@ -50,7 +50,8 @@ public class ArrayQueue {
 
     // Pred: size > 0
     // Post: returns first element in queue
-    public Object element() {
+    @Override
+    protected Object elementImpl() {
         if (elements[head] == null) {
             head = 0;
         }
@@ -59,8 +60,9 @@ public class ArrayQueue {
 
     // Pred: size > 0
     // Post: returns and pops first element in queue && size = size - 1
-    public Object dequeue() {
-        size--;
+
+    @Override
+    protected Object dequeueImpl() {
         if (elements[head] == null) {
             head = 0;
         }
@@ -69,25 +71,20 @@ public class ArrayQueue {
         return result;
     }
 
-
     // Pred: true
     // Post: returns queue size
-    public int size() {
-        return size;
-    }
 
 
     // Pred: true
     // Post return true if queue is empty and false if it's not empty
-    public boolean isEmpty() {
-        return size == 0;
-    }
 
 
     // Pred: true
     // Post: tail = head = size = 0 && elements = new Object[10] && forAll i=0..10 elements[i] == null
-    public void clear() {
-        tail = head = size = 0;
+
+    @Override
+    protected void clearImpl() {
+        tail = head = 0;
         elements = new Object[10];
     }
 
@@ -114,6 +111,33 @@ public class ArrayQueue {
                 i = 0;
             }
             if (elements[i].equals(element)) {
+                result = index;
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public int indexIf(Predicate<Object> predicate) {
+        for (int i = head, index = 0; i != tail; i++, index++) {
+            if (elements[i] == null) {
+                i = 0;
+            }
+            if (predicate.test(elements[i])) {
+                return index;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public int lastIndexIf(Predicate<Object> predicate) {
+        int result = -1;
+        for (int i = head, index = 0; i != tail; i++, index++) {
+            if (elements[i] == null) {
+                i = 0;
+            }
+            if (predicate.test(elements[i])) {
                 result = index;
             }
         }
