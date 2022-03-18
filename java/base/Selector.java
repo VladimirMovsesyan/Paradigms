@@ -75,7 +75,7 @@ public final class Selector {
         final Map<String, String> properties = modes.isEmpty()
                                                ? Map.of("variant", String.join("+", vars))
                                                : Map.of("variant", String.join("+", vars), "mode", mode);
-        final TestCounter counter = new TestCounter(owner, 0, properties);
+        final TestCounter counter = new TestCounter(owner, modeNo, properties);
         vars.forEach(var -> counter.scope("Testing " + var, () -> variants.get(var.toLowerCase()).accept(counter)));
         counter.printStatus();
     }
