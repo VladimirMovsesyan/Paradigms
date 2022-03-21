@@ -59,8 +59,14 @@
    Обратите внимание, что функции `array.map` и 
    `array.reduce` (аналог `leftFold` входят в стандартную библиотеку).
    Обратите внимание на реализацию функции `mCurry`.
- * [Вектора и матрицы](javascript/examples/1_4_vectors.js).
+ * [Пример: вектора и матрицы](javascript/examples/1_4_vectors.js).
 
+Лекция 2. Объекты и замыкания
+ * [Поля](javascript/examples/2_1_fields.js)
+ * [Методы](javascript/examples/2_2_methods.js)
+ * [Замыкания](javascript/examples/2_3_closures.js)
+ * [Модули](javascript/examples/2_4_modules.js)
+ * [Пример: стеки](javascript/examples/2_5_stacks.js)
 
 ## Домашнее задание 5. Вычисление в различных типах
 
