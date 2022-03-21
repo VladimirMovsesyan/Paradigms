@@ -40,6 +40,21 @@ public final class GenericTest {
             .binary("max", Math::max)
             ;
 
+    private static short s(final int x) {
+        return (short) x;
+    }
+    private static final Mode<Short> SHORT = mode("s", c -> (short) c, c -> (short) c)
+            .binary("+", (a, b) -> s(a + b))
+            .binary("-", (a, b) -> s(a - b))
+            .binary("*", (a, b) -> s(a * b))
+            .binary("/", (a, b) -> s(a / b))
+            .unary("-", a -> s(-a))
+
+            .unary("count", a -> s(Integer.bitCount(a & 0xffff)))
+            .binary("min", (a, b) -> s(Math.min(a, b)))
+            .binary("max", (a, b) -> s(Math.max(a, b)))
+            ;
+
     @SuppressWarnings("Convert2MethodRef")
     private static final Mode<Integer> INTEGER_UNCHECKED = mode("u", c -> c)
             .binary("+", (a, b) -> a + b)
@@ -134,12 +149,18 @@ public final class GenericTest {
 
     public static final Selector SELECTOR = Selector.composite(GenericTest.class, GenericTester::new, "easy", "hard")
             .variant("Base", INTEGER_CHECKED, DOUBLE, BIG_INTEGER, ADD, SUBTRACT, MULTIPLY, DIVIDE, NEGATE)
+            .variant("Cmm", COUNT, MIN, MAX)
+            .variant("CmmUls", COUNT, MIN, MAX, INTEGER_UNCHECKED, LONG, SHORT)
             .variant("CmmUlf", COUNT, MIN, MAX, INTEGER_UNCHECKED, LONG, FLOAT)
             .variant("CmmUlt", COUNT, MIN, MAX, INTEGER_UNCHECKED, LONG, INTEGER_TRUNCATE)
             .selector();
 
     private static <T> Mode<T> mode(final String mode, final IntFunction<T> constant) {
         return new Mode<>(mode, constant, IntUnaryOperator.identity());
+    }
+
+    private static <T> Mode<T> mode(final String mode, final IntFunction<T> constant, final IntUnaryOperator fixer) {
+        return new Mode<>(mode, constant, fixer);
     }
 
     public static void main(final String... args) {
