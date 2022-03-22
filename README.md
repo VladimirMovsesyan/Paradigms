@@ -3,6 +3,14 @@
 [Условия домашних заданий](https://www.kgeorgiy.info/courses/paradigms/homeworks.html)
 
 
+## Домашнее задание 7. Объектные выражения на JavaScript
+
+Модификации
+ * *Base*
+    * Код должен находиться в файле `javascript-solutions/objectExpression.js`.
+    * [Исходный код тестов](javascript/jstest/object/ObjectTest.java)
+        * Запускать c указанием модификации и сложности (`easy`, `hard` или `bonus`).
+
 ## Домашнее задание 6. Функциональные выражения на JavaScript
 
 Модификации
@@ -15,13 +23,6 @@
     * Код находится в файле [functionalMiniExpression.js](javascript/functionalMiniExpression.js).
         * Запускать c аргументом `hard` или `easy`, например
           `testjs jstest.functional.MiniTest hard`
-## Домашнее задание X. Объектные выражения на JavaScript
-
-Модификации
- * *Base*
-    * Код должен находиться в файле `javascript-solutions/objectExpression.js`.
-    * [Исходный код тестов](javascript/jstest/object/ObjectTest.java)
-        * Запускать c указанием модификации и сложности (`easy`, `hard` или `bonus`).
  * *Pie*. Дополнительно реализовать поддержку:
     * констант:
         * `pi` – π;
