@@ -27,7 +27,7 @@ public final class FunctionalTest {
     public static final Selector SELECTOR = selector()
             .variant("Base")
             .variant("PieIffAbs",   PI,   E,    IFF,      ABS)
-            .variant("PieAvgMed",   PI,   E,    avg(5),   med(3))
+            .variant("PieAvgMed",   PI,   E,    avg(3),   med(5))
             .selector();
 
     public static void main(final String... args) {
