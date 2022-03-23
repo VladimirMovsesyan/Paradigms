@@ -23,7 +23,7 @@
     * Код находится в файле [functionalMiniExpression.js](javascript/functionalMiniExpression.js).
         * Запускать c аргументом `hard` или `easy`, например
           `testjs jstest.functional.MiniTest hard`
- * *Pie* (31). Дополнительно реализовать поддержку:
+ * *Pie* (31-33). Дополнительно реализовать поддержку:
     * констант:
         * `pi` – π;
         * `e` – основание натурального логарифма;
