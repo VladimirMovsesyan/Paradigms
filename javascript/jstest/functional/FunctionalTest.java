@@ -28,6 +28,7 @@ public final class FunctionalTest {
             .variant("Base")
             .variant("PieIffAbs",   PI,   E,    IFF,      ABS)
             .variant("PieAvgMed",   PI,   E,    avg(3),   med(5))
+            .variant("PieSinhCosh", PI,   E,    SINH,     COSH)
             .selector();
 
     public static void main(final String... args) {
