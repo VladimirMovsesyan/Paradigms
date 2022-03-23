@@ -3,6 +3,14 @@
 [Условия домашних заданий](https://www.kgeorgiy.info/courses/paradigms/homeworks.html)
 
 
+## Домашнее задание 7. Объектные выражения на JavaScript
+
+Модификации
+ * *Base*
+    * Код должен находиться в файле `javascript-solutions/objectExpression.js`.
+    * [Исходный код тестов](javascript/jstest/object/ObjectTest.java)
+        * Запускать c указанием модификации и сложности (`easy`, `hard` или `bonus`).
+
 ## Домашнее задание 6. Функциональные выражения на JavaScript
 
 Модификации
@@ -15,6 +23,26 @@
     * Код находится в файле [functionalMiniExpression.js](javascript/functionalMiniExpression.js).
         * Запускать c аргументом `hard` или `easy`, например
           `testjs jstest.functional.MiniTest hard`
+ * *Pie*. Дополнительно реализовать поддержку:
+    * констант:
+        * `pi` – π;
+        * `e` – основание натурального логарифма;
+ * *PieIffAbs* (36, 37). Дополнительно реализовать поддержку:
+    * модификации *Pie*
+    * операций:
+        * `abs` – абсолютное значение, `-2 abs` равно 2;
+        * `iff` – условный выбор:
+            если первый аргумент неотрицательный,
+            вернуть второй аргумент,
+            иначе вернуть первый третий аргумент.
+            * `one two 3 iff` равно 2
+            * `-1 -2 -3 iff` равно -3
+            * `0 one two iff` равно 1;
+ * *PieAvgMed* (38, 39). Дополнительно реализовать поддержку:
+    * модификации *Pie*
+    * операций:
+        * `avg3` – арифметическое среднее трёх аргументов, `1 2 3 avg3` равно 2;
+        * `med5` – медиана пяти аргументов, `1 2 -10 100 -100 med5` равно 1.
 
 
 Запуск тестов
@@ -59,8 +87,14 @@
    Обратите внимание, что функции `array.map` и 
    `array.reduce` (аналог `leftFold` входят в стандартную библиотеку).
    Обратите внимание на реализацию функции `mCurry`.
- * [Вектора и матрицы](javascript/examples/1_4_vectors.js).
+ * [Пример: вектора и матрицы](javascript/examples/1_4_vectors.js).
 
+Лекция 2. Объекты и замыкания
+ * [Поля](javascript/examples/2_1_fields.js)
+ * [Методы](javascript/examples/2_2_methods.js)
+ * [Замыкания](javascript/examples/2_3_closures.js)
+ * [Модули](javascript/examples/2_4_modules.js)
+ * [Пример: стеки](javascript/examples/2_5_stacks.js)
 
 ## Домашнее задание 5. Вычисление в различных типах
 
