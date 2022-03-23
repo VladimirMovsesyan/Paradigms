@@ -22,8 +22,14 @@ public interface Operations {
 
     Operation PI = constant("pi", Math.PI);
     Operation E = constant("e", Math.E);
+
     Operation ABS = unary("abs", "Abs", Math::abs, null);
     Operation IFF = fixed("iff", "Iff", 3, args -> args[0] >= 0 ? args[1] : args[2], null);
+
+    Operation SINH = unary("sinh", "Sinh", Math::sinh,
+            new int[][]{{1, 1, 1}, {6, 1, 1}, {10, 15, 1}, {10, 10, 1}, {51, 51, 40}, {30, 21, 21}});
+    Operation COSH = unary("cosh", "Cosh", Math::cosh,
+            new int[][]{{1, 1, 1}, {6, 1, 1}, {10, 15, 1}, {10, 10, 1}, {51, 51, 40}, {30, 22, 22}});
 
     static Operation avg(final int arity) {
         return fix("avg", "Avg", arity, DoubleStream::average);
