@@ -7,5 +7,8 @@ let subtract = (a, b) => binOperation(a, b)((x, y) => x - y)
 let multiply = (a, b) => binOperation(a, b)((x, y) => x * y)
 let divide = (a, b) => binOperation(a, b)((x, y) => x / y)
 let negate = (a) => (x, y, z) => -a(x, y, z)
-let PI = Math.PI
-let E = Math.E;
+let sinh = (a) => (x, y, z) => Math.sinh(a(x, y, z))
+let cosh = (a) => (x, y, z) => Math.cosh(a(x, y, z))
+let pi = cnst(Math.PI)
+let e = cnst(Math.E)
+
