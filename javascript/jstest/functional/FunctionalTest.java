@@ -26,6 +26,7 @@ public final class FunctionalTest {
 
     public static final Selector SELECTOR = selector()
             .variant("Base")
+            .variant("Pie",         PI,   E)
             .variant("PieIffAbs",   PI,   E,    IFF,      ABS)
             .variant("PieAvgMed",   PI,   E,    avg(3),   med(5))
             .variant("PieSinhCosh", PI,   E,    SINH,     COSH)

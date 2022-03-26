@@ -57,7 +57,7 @@ public class Diff {
                             final double expected = (
                                     expr.answer.applyAsDouble(i + di, j + dj, k + dk) -
                                             expr.answer.applyAsDouble(i - di, j - dj, k - dk)) / D / 2;
-                            if (Math.abs(expected) < EPS) {
+                            if (Math.abs(expected) < 1 / EPS) {
                                 try {
                                     tester.evaluate(expression, new double[]{i, j, k}, expected);
                                 } catch (final AssertionError e) {
