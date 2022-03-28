@@ -1,5 +1,6 @@
 "use strict";
 
+lecture("3. More Features");
 chapter("Error handling");
 section("Standard errors");
 
