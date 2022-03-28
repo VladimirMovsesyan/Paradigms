@@ -101,6 +101,19 @@
  * [Модули](javascript/examples/2_4_modules.js)
  * [Пример: стеки](javascript/examples/2_5_stacks.js)
 
+Лекция 3. Другие возможности
+ * [Обработка ошибок](javascript/examples/3_1_errors.js)
+ * [Чего нет в JS](javascript/examples/3_2_no.js)
+ * [Стандартная библиотека](javascript/examples/3_3_builtins.js)
+ * [Работа со свойствами](javascript/examples/3_4_properties.js)
+ * [Методы и классы](javascript/examples/3_5_classes.js)
+ * [JS 6+](javascript/examples/3_6_js6.js)
+ * Модули: 
+   [объявление](javascript/examples/3_7_js6_module.mjs)
+   [использование](javascript/examples/3_7_js6_module_usage.mjs)
+ * [Простейший ввод-вывод](javascript/examples/3_8_io.js)
+
+
 ## Домашнее задание 5. Вычисление в различных типах
 
 Модификации
