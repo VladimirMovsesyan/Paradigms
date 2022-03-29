@@ -16,74 +16,61 @@ function Variable(a) {
     }
 }
 
-function Add(a, b) {
-    return {
-        operand1: a,
-        operand2: b,
-        evaluate: function(x, y, z) { return this.operand1.evaluate(x, y, z) + this.operand2.evaluate(x, y, z) },
-        toString: function() { return (this.operand1.toString() + " " + this.operand2.toString() + " + ").trim() }
-    }
-}
-
-function Subtract(a, b) {
-    return {
-        operand1: a,
-        operand2: b,
-        evaluate: function(x, y, z) { return this.operand1.evaluate(x, y, z) - this.operand2.evaluate(x, y, z) },
-        toString: function() { return (this.operand1.toString() + " " + this.operand2.toString() + " - ").trim() }
-    }
-}
-
-function Multiply(a, b) {
-    return {
-        operand1: a,
-        operand2: b,
-        evaluate: function(x, y, z) { return this.operand1.evaluate(x, y, z) * this.operand2.evaluate(x, y, z) },
-        toString: function() { return (this.operand1.toString() + " " + this.operand2.toString() + " * ").trim() }
-    }
-}
-
-function Divide(a, b) {
-    return {
-        operand1: a,
-        operand2: b,
-        evaluate: function(x, y, z) { return this.operand1.evaluate(x, y, z) / this.operand2.evaluate(x, y, z) },
-        toString: function() { return (this.operand1.toString() + " " + this.operand2.toString() + " / ").trim() }
-    }
-}
-
-function Negate(a) {
+function UnaryOperation(a, operation, sym) {
     return {
         value: a,
-        evaluate: function(x, y, z) { return -this.value.evaluate(x, y, z) },
-        toString: function() { return (this.value.toString() + " negate ").trim() }
+        evaluate: function(x, y, z) { return operation(this.value.evaluate(x, y, z)) },
+        toString: function() { return (this.value.toString() + sym).trim() }
     }
 }
 
-let operationMap = {
+function BinaryOperation(a, b, operation, sym) {
+    return {
+        operand1: a,
+        operand2: b,
+        evaluate: function(x, y, z) { return operation(this.operand1.evaluate(x, y, z), this.operand2.evaluate(x, y, z)) },
+        toString: function() { return (this.operand1.toString() + " " + this.operand2.toString() + sym).trim() }
+    }
+}
+
+// Binary operations
+function Add(a, b) { return BinaryOperation(a, b, (u, v) => u + v, " + ") }
+function Subtract(a, b) { return BinaryOperation(a, b, (u, v) => u - v, " - ") }
+function Multiply(a, b) { return BinaryOperation(a, b, (u, v) => u * v, " * ") }
+function Divide(a, b) { return BinaryOperation(a, b, (u, v) => u / v, " / ") }
+
+// Unary operations
+function Negate(a) { return UnaryOperation(a, (u) => -u, " negate ") }
+
+// Available operations
+let binaryOperationMap = {
     "+": Add,
     "-": Subtract,
     "*": Multiply,
     "/": Divide,
-    "negate": Negate,
 }
 
+let unaryOperationMap = {
+    "negate": Negate
+}
+
+// Available variables
 let variableList = "xyz"
 
-function parse(a) {
-    let arr = a.trim().split(/\s+/g)
+function parse(expression) {
+    let elements = expression.trim().split(/\s+/g)
     let stack = []
-    for (const v of arr) {
-        if (!isNaN(v)) {
-            stack.push(new Const(parseInt(v)))
-        } else if (variableList.includes(v)) {
-            stack.push(new Variable(v))
-        } else if (v === "negate") {
-            stack.push(new operationMap[v](stack.pop()))
+    for (const element of elements) {
+        if (!isNaN(element)) {
+            stack.push(new Const(parseInt(element)))
+        } else if (variableList.includes(element)) {
+            stack.push(new Variable(element))
+        } else if (element === "negate") {
+            stack.push(new unaryOperationMap[element](stack.pop()))
         } else {
             const operand2 = stack.pop()
             const operand1 = stack.pop()
-            stack.push(new operationMap[v](operand1, operand2))
+            stack.push(new binaryOperationMap[element](operand1, operand2))
         }
     }
     return stack.pop()
