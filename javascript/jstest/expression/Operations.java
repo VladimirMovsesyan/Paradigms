@@ -36,6 +36,14 @@ public interface Operations {
     Operation LOG = binary("log", "Log", (a, b) -> Math.log(Math.abs(b)) / Math.log(Math.abs(a)),
             new int[][]{{1, 1, 1}, {1, 22, 1}, {44, 1, 1}, {44, 27, 1}, {38, 38, 74}, {43, 68, 63}, {87, 70, 76}, {116, 99, 45}});
 
+    Operation GAUSS = fixed("gauss", "Gauss", 4, args -> gauss(args[0], args[1], args[2], args[3]),
+            new int[][]{{1, 1, 1}, {1, 1, 1}, {1, 1, 1}, {34, 57, 64}, {31, 51, 58}, {47, 1, 1}, {247, 129, 185}, {1007, 693, 763}});
+
+    private static double gauss(final double a, final double b, final double c, final double x) {
+        final double q = (x - b) / c;
+        return a * Math.exp(-q * q / 2);
+    }
+
     static Operation avg(final int arity) {
         return fix("avg", "Avg", arity, DoubleStream::average);
     }

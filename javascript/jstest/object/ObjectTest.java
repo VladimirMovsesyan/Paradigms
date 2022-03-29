@@ -27,6 +27,7 @@ public final class ObjectTest {
     public static final Selector SELECTOR = selector()
             .variant("Base")
             .variant("PowLog", POW, LOG)
+            .variant("Gauss", GAUSS)
             .selector();
 
     private ObjectTest() {
