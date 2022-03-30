@@ -41,6 +41,8 @@ function Divide(a, b) { return BinaryOperation(a, b, (u, v) => u / v, " / ") }
 
 // Unary operations
 function Negate(a) { return UnaryOperation(a, (u) => -u, " negate ") }
+function Sinh(a) { return UnaryOperation(a, (u) => Math.sinh(u), " sinh ") }
+function Cosh(a) { return UnaryOperation(a, (u) => Math.cosh(u), " cosh ") }
 
 // Available operations
 let binaryOperationMap = {
@@ -51,7 +53,9 @@ let binaryOperationMap = {
 }
 
 let unaryOperationMap = {
-    "negate": Negate
+    "negate": Negate,
+    "sinh": Sinh,
+    "cosh": Cosh
 }
 
 // Available variables
@@ -65,7 +69,7 @@ function parse(expression) {
             stack.push(new Const(parseInt(element)))
         } else if (variableList.includes(element)) {
             stack.push(new Variable(element))
-        } else if (element === "negate") {
+        } else if (element in unaryOperationMap) {
             stack.push(new unaryOperationMap[element](stack.pop()))
         } else {
             const operand2 = stack.pop()
