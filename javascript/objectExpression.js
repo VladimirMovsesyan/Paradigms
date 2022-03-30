@@ -16,33 +16,24 @@ function Variable(a) {
     }
 }
 
-function UnaryOperation(a, operation, sym) {
+function Operation(operation, sym, ...operands) {
     return {
-        value: a,
-        evaluate: function(x, y, z) { return operation(this.value.evaluate(x, y, z)) },
-        toString: function() { return (this.value.toString() + sym).trim() }
-    }
-}
-
-function BinaryOperation(a, b, operation, sym) {
-    return {
-        operand1: a,
-        operand2: b,
-        evaluate: function(x, y, z) { return operation(this.operand1.evaluate(x, y, z), this.operand2.evaluate(x, y, z)) },
-        toString: function() { return (this.operand1.toString() + " " + this.operand2.toString() + sym).trim() }
+        operands: operands,
+        evaluate: function(x, y, z) { return operation(...this.operands.map(op => op.evaluate(x, y, z))) },
+        toString: function() { return (this.operands.map(op => op.toString()).join(" ") + " " + sym).trim() }
     }
 }
 
 // Binary operations
-function Add(a, b) { return BinaryOperation(a, b, (u, v) => u + v, " + ") }
-function Subtract(a, b) { return BinaryOperation(a, b, (u, v) => u - v, " - ") }
-function Multiply(a, b) { return BinaryOperation(a, b, (u, v) => u * v, " * ") }
-function Divide(a, b) { return BinaryOperation(a, b, (u, v) => u / v, " / ") }
+function Add(a, b) { return Operation((u, v) => u + v, "+", a, b) }
+function Subtract(a, b) { return Operation((u, v) => u - v, "-", a, b) }
+function Multiply(a, b) { return Operation((u, v) => u * v, "*", a, b) }
+function Divide(a, b) { return Operation((u, v) => u / v, "/", a, b) }
 
 // Unary operations
-function Negate(a) { return UnaryOperation(a, (u) => -u, " negate ") }
-function Sinh(a) { return UnaryOperation(a, (u) => Math.sinh(u), " sinh ") }
-function Cosh(a) { return UnaryOperation(a, (u) => Math.cosh(u), " cosh ") }
+function Negate(a) { return Operation((u) => (-u), "negate", a) }
+function Sinh(a) { return Operation((u) => Math.sinh(u), "sinh", a) }
+function Cosh(a) { return Operation((u) => Math.cosh(u), "cosh", a) }
 
 // Available operations
 let binaryOperationMap = {
