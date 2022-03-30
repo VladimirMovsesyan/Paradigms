@@ -28,6 +28,7 @@ public final class ObjectTest {
             .variant("Base")
             .variant("PowLog", POW, LOG)
             .variant("Gauss", GAUSS)
+            .variant("SinhCosh", SINH, COSH)
             .selector();
 
     private ObjectTest() {
