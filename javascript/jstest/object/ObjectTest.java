@@ -4,6 +4,8 @@ import base.Selector;
 import jstest.expression.Builder;
 import jstest.functional.ExpressionTest;
 
+import static jstest.expression.Operations.*;
+
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
@@ -24,6 +26,9 @@ public final class ObjectTest {
 
     public static final Selector SELECTOR = selector()
             .variant("Base")
+            .variant("PowLog", POW, LOG)
+            .variant("Gauss", GAUSS)
+            .variant("SinhCosh", SINH, COSH)
             .selector();
 
     private ObjectTest() {

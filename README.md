@@ -3,6 +3,15 @@
 [Условия домашних заданий](https://www.kgeorgiy.info/courses/paradigms/homeworks.html)
 
 
+## Домашнее задание 8. Обработка ошибок на JavaScript
+
+Модификации
+ * *Base*
+    * Код должен находиться в файле `javascript-solutions/objectExpression.js`.
+    * [Исходный код тестов](javascript/jstest/prefix/ParserTest.java)
+        * Запускать c указанием модификации и сложности (`easy` или `hard`).
+
+
 ## Домашнее задание 7. Объектные выражения на JavaScript
 
 Модификации
@@ -10,6 +19,19 @@
     * Код должен находиться в файле `javascript-solutions/objectExpression.js`.
     * [Исходный код тестов](javascript/jstest/object/ObjectTest.java)
         * Запускать c указанием модификации и сложности (`easy`, `hard` или `bonus`).
+ * *SinhCosh* (31, 34, 45). Дополнительно реализовать поддержку:
+    * унарных функций:
+        * `Sinh` (`sinh`) – гиперболический синус, `3 sinh` немного больше 10;
+        * `Cosh` (`cosh`) – гиперболический косинус, `3 cosh` немного меньше 10.
+ * *PowLog* (36, 37). Дополнительно реализовать поддержку:
+    * бинарных операций:
+        * `Power` (`pow`) – возведение в степень, `2 3 pow` равно 8;
+        * `Log` (`log`) – логарифм абсолютного значения аргумента
+            по абсолютному значению основания `-2 -8 log` равно 3.
+ * *Gauss* (38, 39(. Дополнительно реализовать поддержку:
+    * функций:
+        * `Gauss` (`gauss`) – [функция Гаусса](https://ru.wikipedia.org/wiki/%D0%93%D0%B0%D1%83%D1%81%D1%81%D0%BE%D0%B2%D0%B0_%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D1%8F);
+          от четырех аргументов: `a`, `b`, `c`, `x`.
 
 ## Домашнее задание 6. Функциональные выражения на JavaScript
 
@@ -100,6 +122,19 @@
  * [Замыкания](javascript/examples/2_3_closures.js)
  * [Модули](javascript/examples/2_4_modules.js)
  * [Пример: стеки](javascript/examples/2_5_stacks.js)
+
+Лекция 3. Другие возможности
+ * [Обработка ошибок](javascript/examples/3_1_errors.js)
+ * [Чего нет в JS](javascript/examples/3_2_no.js)
+ * [Стандартная библиотека](javascript/examples/3_3_builtins.js)
+ * [Работа со свойствами](javascript/examples/3_4_properties.js)
+ * [Методы и классы](javascript/examples/3_5_classes.js)
+ * [JS 6+](javascript/examples/3_6_js6.js)
+ * Модули: 
+   [объявление](javascript/examples/3_7_js6_module.mjs)
+   [использование](javascript/examples/3_7_js6_module_usage.mjs)
+ * [Простейший ввод-вывод](javascript/examples/3_8_io.js)
+
 
 ## Домашнее задание 5. Вычисление в различных типах
 
