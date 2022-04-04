@@ -39,14 +39,6 @@ public interface Operations {
     Operation GAUSS = fixed("gauss", "Gauss", 4, args -> gauss(args[0], args[1], args[2], args[3]),
             new int[][]{{1, 1, 1}, {1, 1, 1}, {1, 1, 1}, {34, 57, 64}, {31, 51, 58}, {47, 1, 1}, {247, 129, 185}, {1007, 693, 763}});
 
-    static Operation min(final int arity) {
-        return fix("min", "Min", arity, DoubleStream::min);
-    }
-
-    static Operation max(final int arity) {
-        return fix("max", "Max", arity, DoubleStream::max);
-    }
-
     private static double gauss(final double a, final double b, final double c, final double x) {
         final double q = (x - b) / c;
         return a * Math.exp(-q * q / 2);
@@ -61,6 +53,26 @@ public interface Operations {
             final double[] sorted = args.sorted().toArray();
             return OptionalDouble.of(sorted[sorted.length / 2]);
         });
+    }
+
+    static Operation min(final int arity) {
+        return fix("min", "Min", arity, DoubleStream::min);
+    }
+
+    static Operation max(final int arity) {
+        return fix("max", "Max", arity, DoubleStream::max);
+    }
+
+    Operation MEAN = any("mean", "Mean", 1, 5, Operations::mean);
+    Operation VAR = any("var", "Var", 1, 5, Operations::var);
+
+    private static double mean(final double[] args) {
+        return Arrays.stream(args).sum() / args.length;
+    }
+
+    private static double var(final double[] args) {
+        final double mean = mean(args);
+        return Arrays.stream(args).map(a -> a - mean).map(a -> a * a).sum() / args.length;
     }
 
     private static Operation fix(final String name, final String alias, final int arity, final Function<DoubleStream, OptionalDouble> f) {
