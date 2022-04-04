@@ -3,6 +3,15 @@
 [Условия домашних заданий](https://www.kgeorgiy.info/courses/paradigms/homeworks.html)
 
 
+## Домашнее задание 9. Линейная алгебра на Clojure
+
+Модификации
+ * *Базовая*
+    * Код должен находиться в файле `clojure-solutions/linear.clj`.
+    * [Исходный код тестов](clojure/cljtest/linear/LinearTest.java)
+        * Запускать c указанием сложности (`easy` или `hard`) и модификации.
+
+
 ## Исходный код к лекциям по Clojure
 
 Документация
