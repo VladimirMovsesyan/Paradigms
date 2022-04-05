@@ -51,6 +51,12 @@
         * `Mean` (`mean`) – математическое ожидание аргументов, `(1 2 6 mean)` равно 3;
         * `Var` (`var`) – дисперсия аргументов, `(2 5 11 var)` равно 14.
     * [Исходный код тестов](javascript/jstest/prefix/PostfixTest.java)
+ * *PostfixSumexpSoftmax* (38, 39). Дополнительно реализовать поддержку:
+    * выражений в постфиксной записи: `(2 3 +)` равно 5
+    * унарных операций:
+        * `Sumexp` (`sumexp`) – сумма экспонент, `(8 8 9 sumexp)` примерно равно 14065;
+        * `Softmax` (`softmax`) – [softmax](https://ru.wikipedia.org/wiki/Softmax) первого аргумента, `(1 2 3 softmax)` примерно 0.09.
+    * [Исходный код тестов](javascript/jstest/prefix/PostfixTest.java)
 
 
 ## Домашнее задание 7. Объектные выражения на JavaScript

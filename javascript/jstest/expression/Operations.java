@@ -66,6 +66,13 @@ public interface Operations {
     Operation MEAN = any("mean", "Mean", 1, 5, Operations::mean);
     Operation VAR = any("var", "Var", 1, 5, Operations::var);
 
+    Operation SUMEXP = any("sumexp", "Sumexp", 0, 3, Operations::sumexp);
+    Operation SOFTMAX = any("softmax", "Softmax", 1, 5, args -> Math.exp(args[0]) / sumexp(args));
+
+    private static double sumexp(final double[] args) {
+        return Arrays.stream(args).map(Math::exp).sum();
+    }
+
     private static double mean(final double[] args) {
         return Arrays.stream(args).sum() / args.length;
     }

@@ -33,6 +33,7 @@ public final class PostfixTest {
             "Const op (2 args)", "(0 1 2)")
             .variant("Base")
             .variant("MeanVar", MEAN, VAR)
+            .variant("SumexpSoftmax", SUMEXP, SOFTMAX)
             .selector();
 
     private PostfixTest() {
