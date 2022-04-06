@@ -28,8 +28,8 @@ public final class PrefixTest {
             "Const op (1 args)", "(0 1)",
             "Const op (2 args)", "(0 1 2)")
             .variant("Base")
-            .variant("MeanVar", FullOperations.MEAN, FullOperations.VAR)
-            .variant("SinhCosh", FullOperations.SINH, FullOperations.COSH)
+            .variant("MeanVar", Operations.MEAN, Operations.VAR)
+            .variant("SinhCosh", Operations.SINH, Operations.COSH)
             .selector();
 
     private PrefixTest() {
