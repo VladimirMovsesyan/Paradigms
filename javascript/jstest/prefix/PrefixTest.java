@@ -2,6 +2,9 @@ package jstest.prefix;
 
 import base.Selector;
 
+import static jstest.expression.Operations.*;
+
+
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
@@ -28,8 +31,8 @@ public final class PrefixTest {
             "Const op (1 args)", "(0 1)",
             "Const op (2 args)", "(0 1 2)")
             .variant("Base")
-            .variant("MeanVar", Operations.MEAN, Operations.VAR)
-            .variant("SinhCosh", Operations.SINH, Operations.COSH)
+            .variant("MeanVar", MEAN, VAR)
+            .variant("SinhCosh", SINH, COSH)
             .selector();
 
     private PrefixTest() {
