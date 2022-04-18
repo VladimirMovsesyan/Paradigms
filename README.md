@@ -3,6 +3,15 @@
 [Условия домашних заданий](https://www.kgeorgiy.info/courses/paradigms/homeworks.html)
 
 
+## Домашнее задание 10. Функциональные выражения на Clojure
+
+Модификации
+ * *Base*
+    * Код должен находиться в файле `clojure-solutions/expression.clj`.
+    * [Исходный код тестов](clojure/cljtest/functional/FunctionalTest.java)
+        * Запускать c указанием модификации и сложности (`easy` или `hard`).
+
+
 ## Домашнее задание 9. Линейная алгебра на Clojure
 
 Модификации
