@@ -16,6 +16,8 @@ public final class LinearTest {
     // Selector
     public static final Selector SELECTOR = new Selector(LinearTester.class, "easy", "hard")
             .variant("Base", v(LinearTester::new))
+            .variant("Simplex", v(SimplexTester::new))
+            .variant("Broadcast", v(BroadcastTester::new))
             ;
 
     private LinearTest() {
