@@ -16,6 +16,8 @@ public final class LinearTest {
     // Selector
     public static final Selector SELECTOR = new Selector(LinearTester.class, "easy", "hard")
             .variant("Base", v(LinearTester::new))
+            .variant("Cuboid", variant(CUBOID, LinearTest::cuboid))
+            .variant("Shapeless", variant(SHAPELESS, LinearTest::shapeless))
             .variant("Simplex", v(SimplexTester::new))
             .variant("Broadcast", v(BroadcastTester::new))
             ;
@@ -63,6 +65,45 @@ public final class LinearTest {
             return test.random();
         }
     }
+
+    // Cuboid
+    private static final List<Item.Fun> CUBOID = Item.functions("c");
+
+    private static void cuboid(final Test test) {
+        for (int complexity = 1; complexity < 10 / TestCounter.DENOMINATOR2; complexity++) {
+            for (int size1 = 1; size1 < complexity; size1++) {
+                for (int size2 = 1; size1 + size2 < complexity; size2++) {
+                    test.test(Item.generator(size1, size2, complexity - size1 - size2));
+                }
+            }
+        }
+
+        if (test.args == 2 && test.isHard()) {
+            test.expectException(new int[]{3, 3, 3}, new int[][]{{}, {3}, {3, 3}, {3, 3, 3, 3}});
+        }
+    }
+
+
+    // Shapeless
+    private static final List<Item.Fun> SHAPELESS = Item.functions("s");
+
+    private static Item genShapeless(final ExtendedRandom random, final int complexity) {
+        if (complexity == 0) {
+            return Item.ZERO;
+        }
+        final int[] parts = new int[1 + random.nextInt(Math.min(complexity, 5))];
+        for (int i = parts.length; i < complexity; i++) {
+            parts[random.nextInt(parts.length)]++;
+        }
+        return Item.vector(Arrays.stream(parts).mapToObj(c -> genShapeless(random, c)));
+    }
+
+    private static void shapeless(final Test test) {
+        IntStream.range(0, 100 / TestCounter.DENOMINATOR2)
+                .forEachOrdered(complexity -> test.test(() -> genShapeless(test.random(), complexity)));
+    }
+
+
 
     public static void main(final String... args) {
         SELECTOR.main(args);
