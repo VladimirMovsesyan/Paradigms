@@ -112,6 +112,12 @@
  * [Потоки](clojure/examples/2_4_streams.clj)
  * [Отображения и множества](clojure/examples/2_5_maps.clj)
 
+Лекция 3. Объекты
+ * [Прототипное наследование](clojure/examples/3_1_js-objects.clj)
+    * Библиотека для ДЗ: [proto.clj](clojure/examples/proto.clj)
+ * [Java-классы](clojure/examples/3_2_java-objects.clj)
+    
+
 
 ## Домашнее задание 8. Обработка ошибок на JavaScript
 
