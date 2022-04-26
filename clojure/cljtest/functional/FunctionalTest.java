@@ -10,6 +10,7 @@ import static jstest.expression.Operations.*;
 public final class FunctionalTest {
     private static final Selector SELECTOR = FunctionalTester.builder()
             .variant("Base",            ARITH)
+            .variant("MeanVarn",        ARITH, MEAN,        VARN)
             .selector();
 
     private FunctionalTest() {
