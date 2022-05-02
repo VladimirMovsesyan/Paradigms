@@ -133,6 +133,11 @@
     * Библиотека для ДЗ: [proto.clj](clojure/examples/proto.clj)
  * [Java-классы](clojure/examples/3_2_java-objects.clj)
     
+Лекция 5. Комбинаторные парсеры
+ * [Базовые функции](clojure/examples/5_1_base.clj)
+ * [Комбинаторы](clojure/examples/5_2_combinators.clj)
+    * Библиотека для ДЗ [parser.clj](clojure/examples/parser.clj)
+ * [JSON](clojure/examples/5_3_json.clj)
 
 
 ## Домашнее задание 8. Обработка ошибок на JavaScript
