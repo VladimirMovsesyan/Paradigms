@@ -3,6 +3,15 @@
 [Условия домашних заданий](https://www.kgeorgiy.info/courses/paradigms/homeworks.html)
 
 
+## Домашнее задание 12. Комбинаторные парсеры
+
+Модификации
+ * *Base*
+    * Код должен находиться в файле `clojure-solutions/expression.clj`.
+    * [Исходный код тестов](clojure/cljtest/parsing/ParserTest.java)
+        * Запускать c указанием модификации и сложности (`easy` или `hard`).
+
+
 ## Домашнее задание 11. Объектные выражения на Clojure
 
 Модификации
