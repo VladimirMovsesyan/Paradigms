@@ -12,6 +12,8 @@ public final class ObjectTest {
             .variant("Base",            ARITH)
             .variant("MeanVarn",        ARITH, MEAN,        VARN)
             .variant("SumexpSoftmax",   ARITH, SUMEXP,      SOFTMAX)
+            .variant("PowLog",          ARITH, POW,         LOG)
+            .variant("ExpLn",           ARITH, EXP,         LN)
             .selector();
 
     private ObjectTest() {
