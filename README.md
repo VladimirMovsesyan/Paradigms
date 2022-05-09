@@ -158,11 +158,17 @@
     * Библиотека для ДЗ: [proto.clj](clojure/examples/proto.clj)
  * [Java-классы](clojure/examples/3_2_java-objects.clj)
     
+Лекция 4. Разное
+ * [Макросы](clojure/examples/4_1_macro.clj)
+ * [Изменяемое состояние](clojure/examples/4_2_mutable-state.clj)
+ * [Числа Чёрча](clojure/examples/4_3_church.clj)
+
 Лекция 5. Комбинаторные парсеры
  * [Базовые функции](clojure/examples/5_1_base.clj)
  * [Комбинаторы](clojure/examples/5_2_combinators.clj)
     * Библиотека для ДЗ [parser.clj](clojure/examples/parser.clj)
  * [JSON](clojure/examples/5_3_json.clj)
+ * [Макросы](clojure/examples/5_4_macro.clj)
 
 
 ## Домашнее задание 8. Обработка ошибок на JavaScript

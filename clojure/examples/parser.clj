@@ -68,26 +68,26 @@
 (def +parser _parser)
 
 
-(defn +collect [defs]
+(defn +rules [defs]
   (cond
     (empty? defs) ()
-    (seq? (first defs)) (let [[[key args body] & tail] defs]
+    (seq? (first defs)) (let [[[name args body] & tail] defs]
                           (cons
-                            {:key key :args args :body body}
-                            (+collect tail)))
-    :else (let [[key body & tail] defs]
+                            {:name name :args args :body body}
+                            (+rules tail)))
+    :else (let [[name body & tail] defs]
             (cons
-              {:key key :args [] :synth true :body body}
-              (+collect tail)))))
+              {:name name :args [] :body body :plain true}
+              (+rules tail)))))
 
-(defmacro defparser [name & rules]
-  (let [collected (+collect rules)
-        keys (set (map :key (filter :synth collected)))]
-    (letfn [(rule [{key :key, args :args, body :body}] `(~key ~args ~(convert body)))
+(defmacro defparser [name & defs]
+  (let [rules (+rules defs)
+        plain (set (map :name (filter :plain rules)))]
+    (letfn [(rule [{name :name, args :args, body :body}] `(~name ~args ~(convert body)))
             (convert [value]
               (cond
                 (seq? value) (map convert value)
                 (char? value) `(+char ~(str value))
-                (keys value) `(~value)
+                (contains? plain value) `(~value)
                 :else value))]
-      `(def ~name (letfn ~(mapv rule collected) (+parser (~(:key (last collected)))))))))
+      `(def ~name (letfn ~(mapv rule rules) (+parser (~(:name (last rules)))))))))
