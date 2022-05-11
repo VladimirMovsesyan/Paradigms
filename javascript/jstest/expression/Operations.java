@@ -130,4 +130,9 @@ public interface Operations {
                 : args.length == 1 ? f.applyAsDouble(zero, args[0])
                 : Arrays.stream(args).reduce(f).orElseThrow();
     }
+
+    private static Operation infix(final String name, final String alias, final int priority, final DoubleBinaryOperator op) {
+        return checker -> checker.infix(name, alias, priority, op);
+    }
+
 }
