@@ -10,7 +10,19 @@
     * Код должен находиться в файле `clojure-solutions/expression.clj`.
     * [Исходный код тестов](clojure/cljtest/parsing/ParserTest.java)
         * Запускать c указанием модификации и сложности (`easy` или `hard`).
-
+ * *Variables* (31-33). Дополнительно реализовать поддержку:
+    * Переменных, состоящих из произвольного количества букв `XYZ` в любом регистре
+        * Настоящее имя переменной определяется первой буквой ее имени
+ * *Bitwise* (34-35). Сделать модификацию *Variables* и дополнительно реализовать поддержку:
+    * Побитовых операций
+        * `BitAnd` (`&`) – и: `5 & 6` равно 4
+        * `BitOr` (`|`) - или: `5 & 6` равно 7
+        * `BitXor` (`^`) - исключающее или: `5 ^ 6` примерно равно 1.66881E-308
+        * для реализации операций используйте
+            [doubleToLongBits](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html#doubleToLongBits(double))
+            и [longBitsToDouble](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html#longBitsToDouble(long))
+        * операции по увеличению приоритета: `^`, `|`, `&`, операции базовой модификации
+   
 
 ## Домашнее задание 11. Объектные выражения на Clojure
 

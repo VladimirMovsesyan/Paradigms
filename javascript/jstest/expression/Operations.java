@@ -20,6 +20,15 @@ public interface Operations {
         checker.any("/", "Divide", 1, 2, arith(1, (a, b) -> a / b));
     };
 
+    Operation INFIX_BIT_AND     = infix("&",   "BitAnd",  90,  bitwise((a, b) -> a & b));
+    Operation INFIX_BIT_OR      = infix("|",   "BitOr",   80,  bitwise((a, b) -> a | b));
+    Operation INFIX_BIT_XOR     = infix("^",   "BitXor",  70,  bitwise((a, b) -> a ^ b));
+
+    private static DoubleBinaryOperator bitwise(final LongBinaryOperator op) {
+        return (a, b) -> Double.longBitsToDouble(op.applyAsLong(Double.doubleToLongBits(a), Double.doubleToLongBits(b)));
+    }
+
+
     Operation PI = constant("pi", Math.PI);
     Operation E = constant("e", Math.E);
 

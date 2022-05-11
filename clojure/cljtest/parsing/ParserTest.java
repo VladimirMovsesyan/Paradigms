@@ -28,6 +28,7 @@ public final class ParserTest {
     private static final Selector SELECTOR = ParserTester.builder()
             .variant("Base",                       ARITH)
             .variant("Variables",       VARIABLES, ARITH)
+            .variant("Bitwise",         VARIABLES, ARITH, INFIX_BIT_AND,    INFIX_BIT_OR,   INFIX_BIT_XOR)
             .selector();
 
     private ParserTest() {
