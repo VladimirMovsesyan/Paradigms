@@ -2,9 +2,7 @@ package jstest.expression;
 
 import java.util.Arrays;
 import java.util.OptionalDouble;
-import java.util.function.DoubleBinaryOperator;
-import java.util.function.DoubleUnaryOperator;
-import java.util.function.Function;
+import java.util.function.*;
 import java.util.stream.DoubleStream;
 
 /**
