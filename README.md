@@ -16,7 +16,7 @@
  * *Bitwise* (34-35). Сделать модификацию *Variables* и дополнительно реализовать поддержку:
     * Побитовых операций
         * `BitAnd` (`&`) – и: `5 & 6` равно 4
-        * `BitOr` (`|`) - или: `5 & 6` равно 7
+        * `BitOr` (`|`) - или: `5 | 6` равно 7
         * `BitXor` (`^`) - исключающее или: `5 ^ 6` примерно равно 1.66881E-308
         * для реализации операций используйте
             [doubleToLongBits](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html#doubleToLongBits(double))
