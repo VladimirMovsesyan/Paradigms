@@ -29,6 +29,7 @@ public final class ParserTest {
             .variant("Base",                       ARITH)
             .variant("Variables",       VARIABLES, ARITH)
             .variant("Bitwise",         VARIABLES, ARITH, INFIX_BIT_AND,    INFIX_BIT_OR,   INFIX_BIT_XOR)
+            .variant("PowLog",          VARIABLES, ARITH, INFIX_POW,   INFIX_LOG)
             .selector();
 
     private ParserTest() {

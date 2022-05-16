@@ -44,6 +44,12 @@
             [doubleToLongBits](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html#doubleToLongBits(double))
             и [longBitsToDouble](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html#longBitsToDouble(long))
         * операции по увеличению приоритета: `^`, `|`, `&`, операции базовой модификации
+ * *PowLog* (36-37). Сделать модификацию *Variables* и дополнительно реализовать поддержку:
+    * Бинарных правоассоциативных операций максимального приоритета:
+        * `IPow` (`**`) – возведения в степень:
+            `4 ** 3 ** 2` равно `4 ** (3 ** 2)` равно 262144
+        * `ILog` (`//`) – взятия логарифма:
+            `8 // 9 // 3` равно `8 // (9 // 3)` равно 3
    
 
 ## Домашнее задание 11. Объектные выражения на Clojure
