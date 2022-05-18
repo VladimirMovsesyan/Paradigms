@@ -2,9 +2,8 @@
 
 (in-ns 'info.kgeorgiy.clojure.church)
 (clojure.core/alias 'c 'clojure.core)
-(c/refer 'clojure.core :only '[fn defn let delay force comp])
+(c/refer 'clojure.core :only '[fn defn let comp defmacro])
 (c/refer 'user :only '[section example])
-
 
 (section "Booleans")
 (example "Values"
@@ -64,6 +63,11 @@
          (to-boolean b-false))
 
 (section "Memory")
+(example "If"
+         (defmacro b-if [c t f]
+           `(c/force ((~c (c/delay ~t)) (c/delay ~f))))
+         (b-if b-true  1 0)
+         (b-if b-false 1 0))
 (example "Auxiliary functions"
          (defn set-fst [p v]
            (p (fn [f] (fn [s] ((pair v) s)))))
@@ -76,16 +80,16 @@
              (let [next (memory (c/dec bits))]
                ((pair next) next))))
          (defn get [memory address]
-           (force
-             (((empty? address) memory)
-              (delay (get (memory (first address)) (rest address))))))
+           (b-if (empty? address)
+                 memory
+                 (get (memory (first address)) (rest address))))
          (defn set [memory address value]
-           (force
-             (((empty? address) value)
-              (delay (let [bit (first address)]
-                       (((bit set-fst) set-snd)
-                        memory
-                        (set (memory bit) (rest address) value))))))))
+           (b-if (empty? address)
+                 value
+                 (let [bit (first address)]
+                   ((b-if bit set-fst set-snd)
+                    memory
+                    (set (memory bit) (rest address) value))))))
 (example "Test"
          (let [a00 ((cons b-false) ((cons b-false) empty))
                a01 ((cons b-false) ((cons b-true) empty))
@@ -133,29 +137,29 @@
 
 (section "Predicates")
 (example "= 0"
-         (defn is-zero? [n] ((n (fn [i] b-false)) b-true))
-         (to-boolean (is-zero? zero))
-         (to-boolean (is-zero? one))
-         (to-boolean (is-zero? three)))
+         (defn n-zero? [n] ((n (fn [i] b-false)) b-true))
+         (to-boolean (n-zero? zero))
+         (to-boolean (n-zero? one))
+         (to-boolean (n-zero? three)))
 (example "<="
-         (defn less-or-equal? [a b] (is-zero? (n- a b)))
-         (to-boolean (less-or-equal? one three))
-         (to-boolean (less-or-equal? one one))
-         (to-boolean (less-or-equal? three one)))
+         (defn n-less-or-equal? [a b] (n-zero? (n- a b)))
+         (to-boolean (n-less-or-equal? one three))
+         (to-boolean (n-less-or-equal? one one))
+         (to-boolean (n-less-or-equal? three one)))
 (example "=="
-         (defn equal? [a b] ((b-and (less-or-equal? a b)) (less-or-equal? b a)))
+         (defn equal? [a b] ((b-and (n-less-or-equal? a b)) (n-less-or-equal? b a)))
          (to-boolean (equal? one three))
          (to-boolean (equal? one one))
          (to-boolean (equal? three one)))
 (example "Division"
-           (defn nd [a b]
-             (force (((less-or-equal? b a)
-                      (delay (succ (nd (n- a b) b))))
-                     zero)))
-           (to-int (nd three one))
-           (to-int (nd three two))
-           (to-int (nd one one))
-           (to-int (nd one three)))
+         (defn nd [a b]
+           (b-if (n-less-or-equal? b a)
+                 (succ (nd (n- a b) b))
+                 zero))
+         (to-int (nd three one))
+         (to-int (nd three two))
+         (to-int (nd one one))
+         (to-int (nd one three)))
 
 (section "Signed numbers")
 (example "Basic definitions"

@@ -3,6 +3,28 @@
 [Условия домашних заданий](https://www.kgeorgiy.info/courses/paradigms/homeworks.html)
 
 
+## Домашнее задание X. Простые числа на Prolog
+
+Модификации
+ * *Базовая*
+    * Код должен находиться в файле `prolog-solutions/primes.pl`.
+    * [Исходный код тестов](prolog/prtest/primes/PrologPrimesTest.java)
+        * Запускать c указанием сложности (`easy`, `hard` или `bonus`) и модификации.
+
+
+## Исходный код к лекциям по Prolog
+
+Запуск Prolog
+ * [Windows](prolog/RunProlog.cmd)
+ * [*nix](prolog/RunProlog.sh)
+
+Лекция 1. Факты, правила и вычисления
+ * [Учебный план](prolog/examples/1_1_plan.pl)
+ * [Вычисления](prolog/examples/1_2_calc.pl)
+ * [Списки](prolog/examples/1_3_lists.pl)
+ * [Правила высшего порядка](prolog/examples/1_4_high-order.pl)
+
+
 ## Домашнее задание 12. Комбинаторные парсеры
 
 Модификации
@@ -22,6 +44,17 @@
             [doubleToLongBits](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html#doubleToLongBits(double))
             и [longBitsToDouble](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html#longBitsToDouble(long))
         * операции по увеличению приоритета: `^`, `|`, `&`, операции базовой модификации
+ * *PowLog* (36-37). Сделать модификацию *Variables* и дополнительно реализовать поддержку:
+    * Бинарных правоассоциативных операций максимального приоритета:
+        * `IPow` (`**`) – возведения в степень:
+            `4 ** 3 ** 2` равно `4 ** (3 ** 2)` равно 262144
+        * `ILog` (`//`) – взятия логарифма (абсолютной величины по основанию абсолютной величины):
+            `8 // 9 // 3` равно `8 // (9 // 3)` равно 3
+ * *BitImplIff*. Сделать модификацию *Bitwise* и дополнительно реализовать поддержку:
+    * Побитовых операций
+        * `BitImpl` (`=>`) – импликация (правоассоциативна): `4 => 1` примерно равно -2
+        * `BitIff` (`<=>`) - тогда и только тогда: `2 <=> 6` примерно равно -1.34827E308
+        * операции по увеличению приоритета: `<=>`, `=>`, операции модификации *Bitwise*
    
 
 ## Домашнее задание 11. Объектные выражения на Clojure
